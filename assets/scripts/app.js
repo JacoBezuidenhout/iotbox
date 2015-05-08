@@ -2,6 +2,7 @@
 angular
   .module('iotboxApp', [
     'ngRoute',
+    'ngAnimate',
     'ngSails',
     'angular-dimple'
   ])

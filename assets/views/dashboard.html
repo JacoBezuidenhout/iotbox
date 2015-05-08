@@ -4,7 +4,71 @@
 		width: 25px;
 	}
 </style>
-<div class="row">
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                    Gateways
+            </li>
+            <li ng-repeat="gateway in gateways">
+                <a href="" ng-click="getNodes(gateway.serial)">{{gateway.serial}} <span class="label label-default">Nodes: {{gateway.nodes.length}}</span></a>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Nodes</h3>
+					  </div>
+					  <div class="panel-body" style="max-height: 250px; overflow-y:scroll;">
+
+					    <div ng-show="nodes.length > 0" class="row">
+							<a ng-animate="'animate'" ng-repeat="node in nodes" href="" ng-click="drawGraph(node.serial,node)">
+								<div class="col-sm-6 col-md-3">
+								    <div class="thumbnail">
+								      	<img src="/images/{{node.icon}}" style="width:75px;" alt="{{node.type}}">
+								      	<div class="caption" style="padding-top:0px;">
+								        	<h4 class="text-center">#{{node.serial}}</h4>
+								        	<p class="text-center"><small>Type: {{node.type}}</small></p>
+									        <p ng-show="node.modules" class="text-center">
+									        	<img ng-animate="'animate'" ng-repeat="module in node.modules" class="img_badge" src="/images/{{module.icon}}"/> 
+									        </p>
+								      	</div>
+								    </div>
+								</div>
+							</a>
+						</div>
+
+					  </div>
+					</div>	
+                </div>
+            </div>
+        </div>
+
+		<div class="row">
+			<graph data="graphData" height=400>
+		        <x field="timestamp"></x>
+		        <y field="value"></y>
+		        <graph-legend></graph-legend>
+		        <line field="type" ></line>
+		    </graph>
+		</div>
+
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+
+<!-- <div class="row">
 	<div class="col-md-12">
 		<div ng-repeat="gateway in gateways" class="panel panel-default">
 		  <div class="panel-heading">
@@ -60,5 +124,5 @@
 		  </div>
 		</div>
 	</div>
-</div>
+</div> -->
 

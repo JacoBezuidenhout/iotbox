@@ -11,27 +11,93 @@
 angular.module('iotboxApp')
  .controller('DashboardCtrl', function ($scope, $sails) {
 
- 	$scope.graphdata = [];
+ 	$scope.gateways = [
+    	{serial: 'EDISON0123', type:'EDISON1.0', nodes:[{serial:'cdf', icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'d1a', icon: 'XB8LP.png', type:'XB8LP'}]},
+    	{serial: 'EDISON4567', type:'EDISON1.0', nodes:[{serial:'cf0', icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'d2e', icon: 'XB8LP.png', type:'XB8LP'}]}
+    ];
+
+    $scope.nodes = [];
+    $scope.modules = [];
+    $scope.graphData = [];
+
+    var getModules = function(serial)
+    {
+    	return [      
+    		
+			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: 25, action: 'CHANGE'},
+	      	{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: 25, action: 'CHANGE'},
+	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: 25, action: 'CHANGE'},
+	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: 25, action: 'TIMER'}
+
+      		];
+    }
+
+    $scope.drawGraph = function(serial,module)
+    {
+    	var defaultSettings = {delta: {time: 300, value: 2}, min: -20, max: 65, safe: {min: 15, max: 35}};
+
+    	 $scope.graphData = [      
+    		
+			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-05-08T06:33:24.492Z"},
+	      	{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-05-08T06:33:24.492Z"},
+	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-05-08T06:33:24.492Z"},
+	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'TIMER', timestamp: "2015-05-08T06:33:24.492Z"},
+    		
+			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-04-08T06:33:24.492Z"},
+	      	{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-04-08T06:33:24.492Z"},
+	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-04-08T06:33:24.492Z"},
+	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'TIMER', timestamp: "2015-04-08T06:33:24.492Z"},
+    		
+			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-03-08T06:33:24.492Z"},
+	      	{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-03-08T06:33:24.492Z"},
+	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-03-08T06:33:24.492Z"},
+	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'TIMER', timestamp: "2015-03-08T06:33:24.492Z"},
+    		
+			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-01-08T06:33:24.492Z"},
+	      	{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-01-08T06:33:24.492Z"},
+	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-01-08T06:33:24.492Z"},
+	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'TIMER', timestamp: "2015-01-08T06:33:24.492Z"}
+
+      		];
+
+    }
+
+    $scope.getNodes = function(serial)
+    {
+    	$scope.gateways.map( function (a) { 
+
+    		if (a.serial == serial) 
+    		{
+    			$scope.nodes = a.nodes; 
+    			$scope.nodes.map( function (b) 
+    			{
+    				b.modules = getModules(b.serial);
+
+    			});
+    		}
+
+    	});
+    }
+    
+
+  });
+
+/* 	$scope.graphdata = [];
     var gateways = [];
     $scope.gateways = [];
 
   	var getModules = function(serial) {
 		var defaultSettings = {delta: {time: 300, value: 2}, min: -20, max: 65, safe: {min: 15, max: 35}};
 		
-		return [
-			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: 25, action: 'CHANGE', settings: defaultSettings},
-			{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: 25, action: 'CHANGE', settings: defaultSettings},
-			{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: 25, action: 'CHANGE', settings: defaultSettings},
-			{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: 25, action: 'TIMER', settings: defaultSettings}
-		];
+		var arr = [ 'Car', 'Car', 'Truck', 'Boat', 'Truck' ];
+		var hist = {};
+		arr.map( function (a) { if (a in hist) hist[a.type] ++; else hist[a] = 1; } );
+		console.log(hist);
+
+		return [];
 	};
   	var getDataset = function(node,module) {
-		return [
-				{value: Math.trunc(Math.random()*50), action: 'CHANGE', timestamp: 0.8, module: module.type},
-				{value: Math.trunc(Math.random()*50), action: 'CHANGE', timestamp: 1.5, module: module.type},
-				{value: Math.trunc(Math.random()*50), action: 'CHANGE', timestamp: 2.6, module: module.type},
-				{value: Math.trunc(Math.random()*50), action: 'TIMER',  timestamp: 3.0, module: module.type}
-			];
+		return [];
 	};
 
 	$scope.loadNode = function(node,gateway) {
@@ -125,7 +191,4 @@ angular.module('iotboxApp')
 		      	});
 		    
 		}
-    });
-
-  });
-
+    });*/
