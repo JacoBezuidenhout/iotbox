@@ -4,6 +4,7 @@ IOTBox.work site
 To Install:
 
 npm install sails -g
+npm install bower -g
 
 git clone https://github.com/JacoBezuidenhout/iotbox.git
 
