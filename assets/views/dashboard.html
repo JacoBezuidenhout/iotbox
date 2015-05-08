@@ -1,0 +1,64 @@
+<style type="text/css">
+	.img_badge
+	{
+		width: 25px;
+	}
+</style>
+<div class="row">
+	<div class="col-md-12">
+		<div ng-repeat="gateway in gateways" class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Gateway | {{gateway.serial}} <small>({{gateway.type}})<small></h3>
+		  </div>
+		  <div class="panel-body">
+			    <div ng-show="data.gateway != gateway.serial" class="row">
+					  <a ng-repeat="node in gateway.nodes" href="" data-toggle="modal" data-target="#viewNode" ng-click="loadNode(node,gateway.serial)">
+						  <div class="col-sm-3 col-md-2">
+						    <div class="thumbnail">
+						      <img src="/images/{{node.icon}}" alt="{{node.type}}">
+						      <div class="caption">
+						        <h3 class="text-center">Node: {{node.serial}}</h3>
+						        <p class="text-center">Type: {{node.type}}</p>
+							        <p class="text-center">
+							        	<img ng-repeat="module in node.modules" class="img_badge" src="/images/{{module.icon}}"/> 
+							        </p>
+						      </div>
+						    </div>
+						  </div>
+					  </a>
+				</div>
+			<div ng-show="data.gateway == gateway.serial" class="row"> 
+				<div class="row">
+					<div class="text-center">
+						<input type="button" class="btn btn-lg btn-primary" value="< Back" ng-click="back()" />
+					<br />
+					<h3 class="well well-sm text-center col-md-offset-4 col-md-4">Node: {{data.serial}}</h3>
+					</div>
+				</div>
+				<div class="row" style="padding: 10px;">
+					<a ng-repeat="module in data.modules" href="" ng-click="drawGraph(data,module)">
+					  <div class="col-sm-4 col-md-3">
+					    <div class="thumbnail">
+					      <img src="/images/{{module.icon}}"/> 
+					      <div class="caption">
+					        <h4 class="text-center">{{module.type}}</h4>
+					        <p class="text-center">{{module.value}}</p>
+					      </div>
+					    </div>
+					  </div>
+					</a>
+				</div>
+				<div class="row">
+					<graph data="graphdata" height=400>
+				        <x field="timestamp"></x>
+				        <y field="value"></y>
+				        <graph-legend></graph-legend>
+				        <line field="module" ></line>
+				    </graph>
+				</div>
+			</div>
+		  </div>
+		</div>
+	</div>
+</div>
+
