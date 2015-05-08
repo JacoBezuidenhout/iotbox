@@ -12,7 +12,7 @@ angular.module('iotboxApp')
  .controller('DashboardCtrl', function ($scope, $sails) {
 
  	$scope.gateways = [
-    	{serial: 'EDISON0123', type:'EDISON1.0', nodes:[{serial:'cdf', icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'d1a', icon: 'XB8LP.png', type:'XB8LP'}]},
+    	{serial: 'EDISON0123', type:'EDISON1.0', nodes:[{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'d1a', icon: 'XB8LP.png', type:'XB8LP'}]},
     	{serial: 'EDISON4567', type:'EDISON1.0', nodes:[{serial:'cf0', icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'d2e', icon: 'XB8LP.png', type:'XB8LP'}]}
     ];
 
@@ -38,25 +38,41 @@ angular.module('iotboxApp')
 
     	 $scope.graphData = [      
     		
-			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-05-08T06:33:24.492Z"},
-	      	{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-05-08T06:33:24.492Z"},
-	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-05-08T06:33:24.492Z"},
-	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'TIMER', timestamp: "2015-05-08T06:33:24.492Z"},
+			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-05-08T06:33:24.492Z")},
+	      	{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-05-08T06:33:24.492Z")},
+	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'TIMER', timestamp: Date.parse("2015-05-08T06:33:24.492Z")},
     		
-			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-04-08T06:33:24.492Z"},
-	      	{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-04-08T06:33:24.492Z"},
-	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-04-08T06:33:24.492Z"},
-	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'TIMER', timestamp: "2015-04-08T06:33:24.492Z"},
+			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-04-08T06:33:24.492Z")},
+	      	{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-04-08T06:33:24.492Z")},
+	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'TIMER', timestamp: Date.parse("2015-04-08T06:33:24.492Z")},
     		
-			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-03-08T06:33:24.492Z"},
-	      	{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-03-08T06:33:24.492Z"},
-	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-03-08T06:33:24.492Z"},
-	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'TIMER', timestamp: "2015-03-08T06:33:24.492Z"},
+			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-03-08T06:33:24.492Z")},
+	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-03-08T06:33:24.492Z")},
+	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'TIMER', timestamp: Date.parse("2015-03-08T06:33:24.492Z")},
     		
-			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-01-08T06:33:24.492Z"},
-	      	{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-01-08T06:33:24.492Z"},
-	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: "2015-01-08T06:33:24.492Z"},
-	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'TIMER', timestamp: "2015-01-08T06:33:24.492Z"}
+			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-01-08T06:33:24.492Z")},
+	      	{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-01-08T06:33:24.492Z")},
+	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-01-08T06:33:24.492Z")},
+    		
+			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-01-10T06:33:24.492Z")},
+	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-01-10T06:33:24.492Z")},
+	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'TIMER', timestamp: Date.parse("2015-01-10T06:33:24.492Z")},
+    		
+			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-01-15T06:33:24.492Z")},
+	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-01-15T06:33:24.492Z")},
+	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'TIMER', timestamp: Date.parse("2015-01-15T06:33:24.492Z")},
+    		
+			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-01-28T06:33:24.492Z")},
+	      	{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-01-28T06:33:24.492Z")},
+	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-01-28T06:33:24.492Z")},
+    		
+	      	{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-06-08T06:33:24.492Z")},
+	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2015-06-08T06:33:24.492Z")},
+	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'TIMER', timestamp: Date.parse("2015-06-08T06:33:24.492Z")},
+    		
+			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2016-01-08T06:33:24.492Z")},
+	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'CHANGE', timestamp: Date.parse("2016-01-08T06:33:24.492Z")},
+	      	{node: serial, type: 'LIGH1_0', icon: '48x48/flashlight app.png' ,value: Math.trunc(Math.random()*defaultSettings.max), action: 'TIMER', timestamp: Date.parse("2016-01-08T06:33:24.492Z")}
 
       		];
 
