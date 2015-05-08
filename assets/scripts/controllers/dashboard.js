@@ -80,7 +80,18 @@ angular.module('iotboxApp')
 
     	if (message.verb == "created") 
     	{
-        	$scope.gateways.push(message.data);
+        	$sails.get("/gateway")
+		      	.success(function (data, status, headers, jwr) {
+		        	$scope.gateways = data;
+		        	$scope.gateways.forEach(function(gateway){
+					    gateway.nodes.forEach(function(node){
+							node.modules = getModules(node.serial);
+						});
+					});
+		      	})
+		      	.error(function (data, status, headers, jwr) {
+		        	alert('Houston, we got a problem!');
+		      	});
        	}
        	if (message.verb == "updated") 
     	{
