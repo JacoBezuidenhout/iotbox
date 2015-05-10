@@ -55,7 +55,7 @@ io.on('connection', function (socket) {
 
   socket.on('disconnect', function () {
   	if (login)
-  	Gateway.publishCreate({id: -2, serial: socket.gateway.serial, message: 'Alert! Gateway ' + socket.gateway.serial + ' missed ping.', time: diff, class: 'danger'});
+  		Gateway.publishCreate({id: -2, serial: socket.gateway.serial, message: 'Alert! Gateway ' + socket.gateway.serial + ' missed ping.', class: 'danger'});
     console.log('user disconnected');
   });
 });
