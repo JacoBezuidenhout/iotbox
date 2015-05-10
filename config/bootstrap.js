@@ -15,7 +15,7 @@ var interval = 1000;
 io.on('connection', function (socket) {
   console.log("connection made");
   var login = false;
-
+  var pinging = false;
   socket.on('login', function (msg) {
     console.log('Gateway', msg.serial, "logged in.");
     socket.gateway = msg;
@@ -29,6 +29,7 @@ io.on('connection', function (socket) {
   socket.on('ping', function (from, msg) {
     console.log('I received a ping back from', socket.gateway.serial);
     socket.gateway.lastHeartbeat = new Date();
+    if (!pinging) ping();
   });
 
   var ping = function()
@@ -40,18 +41,20 @@ io.on('connection', function (socket) {
 	  	if (diff > interval*3)
 	  	{
 	  		console.log('ALERT! No pingback');
-	  		Gateway.publishCreate({id: -2, serial: socket.gateway.serial, message: 'Alert! Gateway ' + socket.gateway.serial + ' disconnected.', time: diff, class: 'danger'});
+	  		Gateway.publishCreate({id: -2, serial: socket.gateway.serial, message: 'Warning! Gateway ' + socket.gateway.serial + ' missed ping.', time: diff, class: 'warning'});
 	  	}
 	  	else
 	  	{
 	  		socket.emit('ping',0);
-	  		console.log('Timeout: ', (interval*3)-diff);
+	  		pinging = true;
+	  		console.log('Timeout: ', (interval*5)-diff);
 	  		setTimeout(ping, Math.max(1000,(interval*3)-diff));
 	  	}
   	}
   }
 
   socket.on('disconnect', function () {
+  	Gateway.publishCreate({id: -2, serial: socket.gateway.serial, message: 'Alert! Gateway ' + socket.gateway.serial + ' missed ping.', time: diff, class: 'danger'});
     console.log('user disconnected');
   });
 });
