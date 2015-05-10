@@ -10,7 +10,7 @@
  */
 var net = require('net');
 
-var HOST = '10.0.0.109';
+var HOST = '';
 var PORT = 8000;
 var interval = 1000;
 
