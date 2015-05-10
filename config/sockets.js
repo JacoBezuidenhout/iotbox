@@ -120,8 +120,12 @@ module.exports.sockets = {
   * disconnects                                                              *
   *                                                                          *
   ***************************************************************************/
+
   // afterDisconnect: function(session, socket, cb) {
   //   // By default: do nothing.
+  //       console.log("disconnect". socket, session);
+  //       Gateway.publishCreate({id: -1, test: true});
+
   //   return cb();
   // },
 

@@ -16,6 +16,19 @@ angular.module('iotboxApp')
     	{serial: 'EDISON4567', type:'EDISON1.0', nodes:[{serial:'cf0', icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'d2e', icon: 'XB8LP.png', type:'XB8LP'}]}
     ];
 
+    $sails.get("/gateway")
+      	.success(function (data, status, headers, jwr) {
+    		console.log("got gateways")
+      	})
+      	.error(function (data, status, headers, jwr) {
+       		alert('Houston, we got a problem!');
+      	});
+
+    // Watching for updates
+    $sails.on("gateway", function (message) {
+    		$scope.message = message.data.serial + " is OFFLINE!!!";
+    });
+
     $scope.nodes = [];
     $scope.modules = [];
     $scope.graphData = [];
