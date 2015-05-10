@@ -1,57 +1,45 @@
-var net = require('net');
-
-var HOST = '10.0.0.109';
-var PORT = 8000;
+// note, io(<port>) will create a http server for you
+var io = require('socket.io')(5000);
 var interval = 1000;
 
-net.createServer(function(sock) {
-    
-    var login = false;
-    console.log('CONNECTED: ' + sock.remoteAddress +':'+ sock.remotePort);
+io.on('connection', function (socket) {
+  console.log("connection made");
+  var login = false;
 
-    sock.on('data', function(data) {
-        var d = JSON.parse(data);
+  socket.on('login', function (msg) {
+    console.log('Gateway', msg.serial, "logged in.");
+    socket.gateway = msg;
+    socket.gateway.lastHeartbeat = new Date();
+    socket.emit('login',{success: true, interval: 1000});
+    login = true;
+    ping();
+  });
 
-    var start = function()
-    {
-	
-    	var now = new Date();
-    	sock.write(sock.serial);
-    	if ((now.getTime() - sock.timestamp.getTime()) > (interval*3))
-    	{
-    		console.log("Alert!",now.getTime() - sock.timestamp.getTime());
-    		Gateway.publishCreate({id:-1,serial:sock.serial, time: (now.getTime() - sock.timestamp.getTime())});
-    	}
-    	else
-    		setTimeout(start, interval);
+  socket.on('ping', function (from, msg) {
+    console.log('I received a ping back from', socket.gateway.serial);
+    socket.gateway.lastHeartbeat = new Date();
+  });
 
-	};
+  var ping = function()
+  {
+  	if (login)
+  	{
+	  	var now = new Date();
+	  	var diff = now.getTime() - socket.gateway.lastHeartbeat.getTime();
+	  	if (diff > interval*3)
+	  	{
+	  		console.log('ALERT! No pingback');
+	  	}
+	  	else
+	  	{
+	  		socket.emit('ping',0);
+	  		console.log('Timeout: ', (interval*3)-diff);
+	  		setTimeout(ping, Math.max(1000,(interval*3)-diff));
+	  	}
+  	}
+  }
 
-        if (!login)
-        {
-        		console.log('DATA ' + sock.remoteAddress + ': ' + data);
-        		sock.serial = d.serial;
-        		sock.timestamp = new Date();
-        		login = true;
-        		start();
-        }
-        else
-        {
-        		sock.timestamp = new Date();
-        }
-    
-    });
-    
-
-    sock.on('error', function(data) {
-        console.log('ERROR:',sock.serial);
-        sock.destroy();
-    });
-
-    sock.on('close', function(data) {
-        console.log('CLOSED:',sock.serial);
-    });
-    
-}).listen(PORT, HOST);
-
-console.log('Server listening on ' + HOST +':'+ PORT);
+  socket.on('disconnect', function () {
+    console.log('user disconnected');
+  });
+});

@@ -8,67 +8,58 @@
  * For more information on bootstrapping your app, check out:
  * http://sailsjs.org/#/documentation/reference/sails.config/sails.config.bootstrap.html
  */
-var net = require('net');
-
-var HOST = '';
-var PORT = 8000;
+// note, io(<port>) will create a http server for you
+var io = require('socket.io')(5000);
 var interval = 1000;
 
-net.createServer(function(sock) {
-		var login = false;
-	    console.log('CONNECTED: ' + sock.remoteAddress +':'+ sock.remotePort);
+io.on('connection', function (socket) {
+  console.log("connection made");
+  var login = false;
 
-	    sock.on('data', function(data) {
-	        var d = JSON.parse(data);
+  socket.on('login', function (msg) {
+    console.log('Gateway', msg.serial, "logged in.");
+    socket.gateway = msg;
+    socket.gateway.lastHeartbeat = new Date();
+    socket.emit('login',{success: true, interval: 1000});
+    login = true;
+    Gateway.publishCreate({id: -1, serial: socket.gateway.serial, message: 'Gateway ' + socket.gateway.serial + ' connected.', class: 'success'});
+    ping();
+  });
 
-	    var start = function()
-	    {
-		    var monitor = setInterval(function(){
-		    	if (login)
-		    	{	
-		        	var now = new Date();
-		        	sock.write(sock.serial);
-		        	if ((now.getTime() - sock.timestamp.getTime()) > (interval*3))
-		        	{
-		        		console.log("Alert!",now.getTime() - sock.timestamp.getTime());
-		        		Gateway.publishCreate({id:-1,serial:sock.serial, time: (now.getTime() - sock.timestamp.getTime())});
-		        		clearInterval(monitor);
-		        	}
-		        }
-		    }, interval);
-		};
+  socket.on('ping', function (from, msg) {
+    console.log('I received a ping back from', socket.gateway.serial);
+    socket.gateway.lastHeartbeat = new Date();
+  });
 
-	        if (!login)
-	        {
-	        		console.log('DATA ' + sock.remoteAddress + ': ' + data);
-	        		sock.serial = d.serial;
-	        		sock.timestamp = new Date();
-	        		login = true;
-	        		start();
-	        }
-	        else
-	        {
-	        		sock.timestamp = new Date();
-	        }
-	    
-	    });
-	    
+  var ping = function()
+  {
+  	if (login)
+  	{
+	  	var now = new Date();
+	  	var diff = now.getTime() - socket.gateway.lastHeartbeat.getTime();
+	  	if (diff > interval*3)
+	  	{
+	  		console.log('ALERT! No pingback');
+	  		Gateway.publishCreate({id: -2, serial: socket.gateway.serial, message: 'Alert! Gateway ' + socket.gateway.serial + ' disconnected.', time: diff, class: 'danger'});
+	  	}
+	  	else
+	  	{
+	  		socket.emit('ping',0);
+	  		console.log('Timeout: ', (interval*3)-diff);
+	  		setTimeout(ping, Math.max(1000,(interval*3)-diff));
+	  	}
+  	}
+  }
 
-	    sock.on('error', function(data) {
-	        console.log('ERROR:',sock.serial);
-	    });
-
-	    sock.on('close', function(data) {
-	        console.log('CLOSED:',sock.serial);
-	    });
-	    
-}).listen(PORT, HOST);
-
-console.log('Server listening on ' + HOST +':'+ PORT);
+  socket.on('disconnect', function () {
+    console.log('user disconnected');
+  });
+});
 
 module.exports.bootstrap = function(cb) {
 
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
+
   cb();
 };

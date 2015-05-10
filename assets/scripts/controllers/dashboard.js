@@ -26,7 +26,8 @@ angular.module('iotboxApp')
 
     // Watching for updates
     $sails.on("gateway", function (message) {
-    		$scope.message = message.data.serial + " is OFFLINE!!!";
+    		$scope.messages = [];
+    		$scope.messages.push(message.data);
     });
 
     $scope.nodes = [];
@@ -35,8 +36,8 @@ angular.module('iotboxApp')
 
     var getModules = function(serial)
     {
-    	return [      
-    		
+    	return [
+
 			{node: serial, type: 'TEMP1_0', icon: '48x48/weather.png' ,value: 25, action: 'CHANGE'},
 	      	{node: serial, type: 'HUMI1_0', icon: '48x48/rainmeter.png' ,value: 25, action: 'CHANGE'},
 	      	{node: serial, type: 'BATE1_0', icon: '48x48/battery.png' ,value: 25, action: 'CHANGE'},

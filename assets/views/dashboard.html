@@ -17,17 +17,17 @@
                     <h3 style="color: white">Gateways</h3>
             </li>
             <li ng-repeat="gateway in gateways">
-				<a href="" ng-click="getNodes(gateway.serial)">                
+				<a href="" ng-click="getNodes(gateway.serial)">
 	                <div class="row">
 	                	<div class="col-md-5">
-	                
-	                		<p>{{gateway.serial}}</p> 
-	            	
+
+	                		<p>{{gateway.serial}}</p>
+
 	            		</div>
 	                	<div class="col-md-7">
-	                
+
 	                		<span class="label label-primary" ng-class="{label-danger: error}">Node Count: {{gateway.nodes.length}}</span>
-	            	
+
 	            		</div>
 	            	</div>
 	            </a>
@@ -38,9 +38,9 @@
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
-    
-    <div ng-show="message" class="alert alert-danger" role="alert">
-  		{{message}}
+
+    <div ng-repeat="message in messages" ng-show="message" class="alert alert-{{message.class}}" role="alert">
+  		{{message.message}}
 	</div>
 
     <a href="#menu-toggle" class="btn btn-default" style="position: fixed; right: 10px; top: 10px;" id="menu-toggle">Toggle Menu</a>
