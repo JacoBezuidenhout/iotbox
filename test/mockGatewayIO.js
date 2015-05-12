@@ -1,5 +1,5 @@
 // mockGatewayIO.j
-var socket = require('socket.io-client')('http://localhost:5000');
+var socket = require('socket.io-client')('http://api.iotbox.work');
 
 var settings = {};
 var run;
