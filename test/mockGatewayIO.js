@@ -7,7 +7,7 @@ console.log("Connecting...");
 
 socket.on('connect', function(){
 	console.log("Connection Successful");
-	socket.emit('login',{serial: 'EDISON0123', type: 'EDISONv1'});
+	socket.emit('login',{serial: 'Gateway A', type: 'PC Client'});
 });
 
 socket.on('login', function(data){
