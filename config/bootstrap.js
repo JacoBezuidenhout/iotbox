@@ -11,8 +11,8 @@
 // note, io(<port>) will create a http server for you
 var io = require('socket.io')(5000);
 var interval = 1000;
-io.set('heartbeat interval', 10);
-io.set('heartbeat timeout', 35);
+// io.set('heartbeat interval', 10);
+// io.set('heartbeat timeout', 35);
 
 io.on('connection', function (socket) {
   console.log("connection made");
