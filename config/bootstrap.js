@@ -62,7 +62,7 @@ io.on('connection', function (socket) {
   	{
 	  	var now = new Date();
 	  	var diff = now.getTime() - socket.gateway.lastHeartbeat.getTime();
-	  	if (diff > interval*3)
+	  	if (diff > interval*5)
 	  	{
 	  		    console.log('ALERT! No pingback');
 	  		    var message = {body: "Gateway " + socket.gateway.serial + " did not ping back.", class: "warning"};
@@ -75,7 +75,7 @@ io.on('connection', function (socket) {
 	  	{
 	  		socket.emit('ping',0);
 	  		// console.log('Timeout: ', (interval*5)-diff);
-	  		setTimeout(ping, Math.max(1000,(interval*3)-diff));
+	  		setTimeout(ping, Math.max(1000,(interval*5)-diff));
 	  	}
   	}
   }
@@ -88,7 +88,7 @@ io.on('connection', function (socket) {
         var message = {body: "Gateway " + socket.gateway.serial + " disconnected.", class: "danger"};
         var gateway = {serial: socket.gateway.serial, type: socket.gateway.type, class: "danger"};
         Heartbeat.publishCreate({id: -1, message: message, gateway: gateway});
-      },(interval*3) + 1000);
+      },(interval*5) + 1000);
     }
     console.log('user disconnected');
   });
