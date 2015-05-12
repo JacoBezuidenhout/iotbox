@@ -1,0 +1,10 @@
+{
+  "name": "iotbox-test",
+  "private": true,
+  "version": "0.0.0",
+  "description": "a Sails application",
+  "keywords": [],
+  "dependencies": {
+    "socket.io-client": "^1.3.5"
+  }
+}

@@ -1,0 +1,58 @@
+    <link rel="stylesheet" href="styles/main.css">
+
+    <!-- Add your site or application content here -->
+    <div class="header">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="#/">IOTBox</a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+
+            <ul class="nav navbar-nav">
+              <li><a href="#/">Home</a></li>
+              <li class="active"><a href="#/heartbeat">Heartbeat</a></li>
+              <li><a ng-href="#/dashboard">Dashboard</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="jumbotron">
+  <h1>'IoT, 'IoT!</h1>
+  <p class="lead">
+    <!-- <img src="images/yeoman.png" alt="I'm Yeoman"><br> -->
+    Remote Gateway Monitoring
+  </p>
+  <!-- <p><a class="btn btn-lg btn-success" ng-href="#/dashboard">Lets see it!<span class="glyphicon glyphicon-ok"></span></a></p> -->
+</div>
+
+<div class="row">
+	<div class="col-md-offset-2 col-md-8">
+		<p ng-hide="subscribed" class="alert alert-warning text-center">Connecting...</p>
+		<p ng-show="subscribed * showMessage" class="alert alert-success text-center">Connected to server</p>
+	</div>
+
+	<div ng-hide="showMessage" class="col-md-6">
+		<h2 class="text-center">Gateways</h2>
+		<div style="max-height: 500px; overflow: auto;">
+			<p ng-repeat="gateway in gateways" class="alert alert-{{gateway.class}}">Serial: {{gateway.serial}} | Type: {{gateway.serial}}</p>
+		</div>
+	</div>
+	<div ng-hide="showMessage" class="col-md-6">
+		<h2 class="text-center">Messages</h2>
+		<div style="max-height: 500px; overflow: auto;">
+			<p ng-repeat="message in messages" class="alert alert-{{message.class}}">{{message.body}}</p>
+		</div>
+	</div>
+</div>

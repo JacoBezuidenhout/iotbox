@@ -15,6 +15,10 @@ angular
       .when('/dashboard', {
         templateUrl: 'views/dashboard.html',
         controller: 'DashboardCtrl'
+      })      
+      .when('/heartbeat', {
+        templateUrl: 'views/heartbeat.html',
+        controller: 'HeartbeatCtrl'
       })
       .otherwise({
         redirectTo: '/'
