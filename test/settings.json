@@ -1,0 +1,932 @@
+{
+    "serial": "Gateway39566",
+    "type": "Intel Edison 1.0",
+    "success": "success",
+    "interval": 1000,
+    "lastHeartbeat": "2015-05-13T18:28:04.851Z",
+    "createdAt": "2015-05-13T07:24:19.170Z",
+    "updatedAt": "2015-05-13T08:47:52.576Z",
+    "id": 3,
+    "nodes": [
+        {
+            "serial": "Node923409",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node923409",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node133999",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node541316",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node881181",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node719323",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node457127",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node889780",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node907416",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node564144",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node627290",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node411317",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node427522",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node773913",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node872895",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node88293",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node1016872",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node948463",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node959952",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node184076",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node718105",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node273967",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node729689",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node641025",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node135213",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node50479",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node280090",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node394210",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node859214",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node341882",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node789448",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node185940",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node212507",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node213566",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node57015",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node274175",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node470619",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node415295",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node899217",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node855038",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node277137",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node520178",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node351049",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node657986",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node770926",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node322224",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node142977",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node973355",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node546838",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node916539",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node893292",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node6155",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node504396",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node679954",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node335031",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node997346",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node721049",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node935358",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node162978",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node345564",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node318052",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node871038",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node861296",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node211532",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node3064",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node12814",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node275255",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node891246",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node220694",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node608502",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node270799",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node842566",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node857169",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node276706",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node706092",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node646161",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node143911",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node471103",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node843695",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node351450",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node365690",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node800497",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node18661",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node562213",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node39184",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node700854",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node539667",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node458443",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node821305",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node254551",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node199895",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node665347",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node810117",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node619626",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node595888",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node786086",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node534966",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node458427",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node410018",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node919559",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node610564",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node690128",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node227451",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node92802",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node415050",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node137550",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node686216",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node24216",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node318727",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node606739",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node872686",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node188717",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node402012",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node479404",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node811323",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node19602",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node616742",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node819193",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node12265",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node823957",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node113174",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node161239",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node179776",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node186158",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node63531",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node544745",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node707234",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node57410",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node225624",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node923967",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node394184",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node742165",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node921596",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node72943",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node314931",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node337002",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node877252",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node809770",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node132561",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node1014138",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node787348",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node556941",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node554584",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node541638",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node1011001",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node900800",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node850085",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node141647",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node727333",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node978248",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node942519",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node67718",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node86318",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node12467",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node562212",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node839253",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node631470",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node1003836",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node579463",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node306127",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node383648",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node671560",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node445896",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node186902",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node238175",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node95994",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node406504",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node986402",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node236219",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node126984",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node929975",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node125495",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node767935",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node946527",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node951713",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node253417",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node662567",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node198387",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node844005",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node990825",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node555881",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node586081",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node870577",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node770920",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node770968",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node64397",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node787853",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node782439",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node21555",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node951618",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node93173",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node76426",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node605511",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node581341",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node787993",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node904337",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node238618",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node600486",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node641828",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node610249",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node409065",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node1016284",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node953423",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node229468",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node79829",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node741624",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node94802",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node667764",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node271908",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node663062",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node337169",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node684940",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node693981",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node246621",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node326122",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node706608",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node697615",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node825590",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node274125",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node520363",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node6891",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node849083",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node957522",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node23127",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node330706",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node408905",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node854008",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node189201",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node282241",
+            "type": "XBee868LP"
+        },
+        {
+            "serial": "Node763498",
+            "type": "XBee868LP"
+        }
+    ]
+}

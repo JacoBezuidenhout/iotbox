@@ -6,8 +6,9 @@
 */
 
 module.exports = {
-
-  attributes: {
+  	migrate: 'safe',
+  	connection: 'someMongodbServer',
+  	attributes: {
 
   }
 };

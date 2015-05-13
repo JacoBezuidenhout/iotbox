@@ -8,7 +8,7 @@
  * For more information on bootstrapping your app, check out:
  * http://sailsjs.org/#/documentation/reference/sails.config/sails.config.bootstrap.html
  */
-// note, io(<port>) will create a http server for you
+
 var io = require('socket.io')(5000);
 var interval = 1000;
 // io.set('heartbeat interval', 10);
@@ -21,20 +21,73 @@ io.on('connection', function (socket) {
   var gotPing = false;
 
   socket.on('login', function (msg) {
-    console.log('Gateway', msg.serial, "logged in.");
-    socket.gateway = msg;
-    socket.gateway.lastHeartbeat = new Date();
-    socket.emit('login',{success: true, interval: 1000});
-    login = true;
+    if (msg.serial === '???')
+    {
+      msg.serial = 'Gateway' + Math.trunc(Math.random()*102400);
 
-    var message = {body: "Gateway " + socket.gateway.serial + " logged in.", class: "success"};
-    var gateway = {serial: socket.gateway.serial, type: socket.gateway.type, class: "success"};
-    Heartbeat.publishCreate({id: -1, message: message, gateway: gateway});
+    }
+    
+    Gateway.findOrCreate({serial:msg.serial},msg).exec(function createFindCB(err,record){
+      msg = record;
+      console.log('Gateway', msg.serial, "logged in.");
+      
+      login = true;
+      msg.success = 'success';
+      msg.interval = interval;
+      
+      socket.gateway = msg;
+      socket.gateway.lastHeartbeat = new Date();
+      
+      socket.gateway.nodes = msg.nodes || [];
+      console.log(socket.gateway.nodes);
+      socket.emit('login',msg);
+      
+      var message = {body: "Gateway " + socket.gateway.serial + " logged in.", class: "success"};
+      var gateway = {serial: socket.gateway.serial, type: socket.gateway.type, class: "success"};
+      Heartbeat.publishCreate({id: -1, message: message, gateway: gateway});
 
-    ping();
+      ping();
+  
+    
+    });
   });
 
-  socket.on('ping', function (from, msg) {
+  socket.on('data', function (msg) {
+
+    console.log(msg); 
+    var node = {serial: msg.node, type: msg.type};
+    Node.findOrCreate({serial:msg.node},node).exec(function createFindCB(err,record){
+
+      var exist = socket.gateway.nodes.filter(function(n){ return n.serial === node.serial});
+      if (exist.length > 0) 
+      {
+        // console.log('Contains',node);
+      }
+      else
+      {
+        socket.gateway.nodes.push(node);
+        Gateway.update({serial: socket.gateway.serial},socket.gateway).exec(function afterwards(err,updated){
+
+          if (err) {
+            // handle error here- e.g. `res.serverError(err);`
+            return;
+          }
+
+          //console.log('Updated node',updated);
+        });
+
+        //console.log('Insert',node);
+      }
+
+      Datapoint.create(msg).exec(function createCB(err,created){
+        //console.log('Datapoint created',created);
+      });
+
+    });
+
+  });
+
+  socket.on('ping', function (msg) {
     // console.log('I received a ping back from', socket.gateway.serial);
     socket.gateway.lastHeartbeat = new Date();
     if (pinging == 0) 
@@ -65,17 +118,19 @@ io.on('connection', function (socket) {
 	  	if (diff > interval*5)
 	  	{
 	  		    console.log('ALERT! No pingback');
-	  		    var message = {body: "Gateway " + socket.gateway.serial + " did not ping back.", class: "warning"};
+	  
+    		    var message = {body: "Gateway " + socket.gateway.serial + " did not ping back.", class: "warning"};
             var gateway = {serial: socket.gateway.serial, type: socket.gateway.type, class: "warning"};
             Heartbeat.publishCreate({id: -1, message: message, gateway: gateway});
+    
             socket.emit('ping',0);
             pinging = 0;
 	  	}
 	  	else
 	  	{
-	  		socket.emit('ping',0);
+        socket.emit('ping',0);
+        setTimeout(ping, Math.max(1000,(interval*5)-diff));
 	  		// console.log('Timeout: ', (interval*5)-diff);
-	  		setTimeout(ping, Math.max(1000,(interval*5)-diff));
 	  	}
   	}
   }
@@ -85,9 +140,11 @@ io.on('connection', function (socket) {
     {     
       setTimeout(function()
       {
+      
         var message = {body: "Gateway " + socket.gateway.serial + " disconnected.", class: "danger"};
         var gateway = {serial: socket.gateway.serial, type: socket.gateway.type, class: "danger"};
         Heartbeat.publishCreate({id: -1, message: message, gateway: gateway});
+      
       },(interval*5) + 1000);
     }
     console.log('user disconnected');

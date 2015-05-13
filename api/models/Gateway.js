@@ -18,13 +18,8 @@ module.exports = {
   	{
   		type : "string",
   		required : true
-  	},
-
-  	nodes :
-  	{
-  		collection : "node"
   	}
-
+    
   }
 };
 
