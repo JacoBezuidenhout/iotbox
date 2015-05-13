@@ -22,9 +22,9 @@ socket.on('login', function(data)
 	      console.log(err);
 	    } else {
 	      console.log("JSON saved to " + settings_filename);
+		    var serial = 'Node'+Math.trunc(Math.random()*1024000);
 		    var run2 = setInterval(function()
 		    {  
-		      var serial = 'Node'+Math.trunc(Math.random()*1024000);
 		      socket.emit('data',{node: serial, type: 'XBee868LP', module: ['TEMP','HUMIDITY','BATTERY','LIGHT'][Math.trunc(Math.random()*4)], value: Math.random()*50});
 		      socket.emit('data',{node: serial, type: 'XBee868LP', module: ['TEMP','HUMIDITY','BATTERY','LIGHT'][Math.trunc(Math.random()*4)], value: Math.random()*50});
 		      socket.emit('data',{node: serial, type: 'XBee868LP', module: ['TEMP','HUMIDITY','BATTERY','LIGHT'][Math.trunc(Math.random()*4)], value: Math.random()*50});
@@ -33,7 +33,7 @@ socket.on('login', function(data)
 		      socket.emit('data',{node: serial, type: 'XBee868LP', module: ['TEMP','HUMIDITY','BATTERY','LIGHT'][Math.trunc(Math.random()*4)], value: Math.random()*50});
 		      socket.emit('data',{node: serial, type: 'XBee868LP', module: ['TEMP','HUMIDITY','BATTERY','LIGHT'][Math.trunc(Math.random()*4)], value: Math.random()*50});
 		      socket.emit('data',{node: serial, type: 'XBee868LP', module: ['TEMP','HUMIDITY','BATTERY','LIGHT'][Math.trunc(Math.random()*4)], value: Math.random()*50});
-		    },500);
+		    },10);
 	    }
 	});
 
@@ -53,6 +53,6 @@ socket.on('settings', function(data){
 
 
 socket.on('disconnect', function(){
-	clearInterval(run);
-	clearInterval(run2);
+	// clearInterval(run);
+	// clearInterval(run2);
 });
