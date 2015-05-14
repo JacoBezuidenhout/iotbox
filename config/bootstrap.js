@@ -10,86 +10,76 @@
  */
 
 var io = require('socket.io')(5000);
+var checksum = require('checksum');
 var interval = 1000;
 // io.set('heartbeat interval', 10);
 // io.set('heartbeat timeout', 35);
-
-io.on('connection', function (socket) {
-  console.log("connection made");
+//var defaultSettings = {delta: {time: 300, value: 2}, min: -20, max: 65, safe: {min: 15, max: 35}};
+io.on('connection', function (socket) 
+{
+  console.log("New Connection Made");
   var login = false;
   var pinging = 0;
-  var gotPing = false;
 
-  socket.on('login', function (msg) {
-    if (msg.serial === '???')
+  var getStatus = function(line,cb)
+  {
+    Node.findOne({serial: line.node},function(err,node){
+      console.log(err,node);
+      if (line.value > node.settings.safe.min && line.value < node.settings.safe.max)
+        cb('success');
+      else
+        cb('danger');
+    });
+  }
+
+  socket.on('login', function (msg) 
+  {
+    console.log('Logging In...', msg);
+    Gateway.findOrCreate({id: msg.id}, msg).exec(function createFindCB(err,gateway)
     {
-      msg.serial = 'Gateway' + Math.trunc(Math.random()*102400);
+      console.log('Gateway', gateway, "logged in.");
 
-    }
-    
-    Gateway.findOrCreate({serial:msg.serial},msg).exec(function createFindCB(err,record){
-      msg = record;
-      console.log('Gateway', msg.serial, "logged in.");
-      
+      gateway.serial = gateway.serial || ('Gateway'+gateway.id);
+      gateway.lastConnect = new Date();
+      gateway.save();
+
       login = true;
-      msg.success = 'success';
-      msg.interval = interval;
+
+      gateway.success = 'success';
+      gateway.interval = interval;
       
-      socket.gateway = msg;
+      socket.emit('login',gateway);
+      
+      socket.gateway = gateway;
       socket.gateway.lastHeartbeat = new Date();
-      
-      socket.gateway.nodes = msg.nodes || [];
-      console.log(socket.gateway.nodes);
-      socket.emit('login',msg);
-      
+
       var message = {body: "Gateway " + socket.gateway.serial + " logged in.", class: "success"};
       var gateway = {serial: socket.gateway.serial, type: socket.gateway.type, class: "success"};
       Heartbeat.publishCreate({id: -1, message: message, gateway: gateway});
 
-      ping();
-  
-    
+      ping(); 
     });
   });
 
-  socket.on('data', function (msg) {
-
-    console.log(msg); 
-    var node = {serial: msg.node, type: msg.type};
-    Node.findOrCreate({serial:msg.node},node).exec(function createFindCB(err,record){
-
-      var exist = socket.gateway.nodes.filter(function(n){ return n.serial === node.serial});
-      if (exist.length > 0) 
-      {
-        // console.log('Contains',node);
-      }
-      else
-      {
-        socket.gateway.nodes.push(node);
-        Gateway.update({serial: socket.gateway.serial},socket.gateway).exec(function afterwards(err,updated){
-
-          if (err) {
-            // handle error here- e.g. `res.serverError(err);`
-            return;
-          }
-
-          //console.log('Updated node',updated);
+  socket.on('data', function (msg) 
+  {
+    cs = checksum(JSON.stringify(msg));
+    socket.emit('data',cs);
+    msg.gateway = socket.gateway.serial;
+    socket.gateway.lastHeartbeat = new Date();
+    Node.findOrCreate({serial:msg.node},{serial: msg.node, type: msg.type}).exec(function createFindCB(err,node){
+      getStatus(msg,function(status){
+        msg.status = status;
+        Datapoint.create(msg).exec(function createCB(err,created){
+          console.log('Datapoint created',created,cs);
         });
-
-        //console.log('Insert',node);
-      }
-
-      Datapoint.create(msg).exec(function createCB(err,created){
-        //console.log('Datapoint created',created);
       });
-
     });
-
   });
 
   socket.on('ping', function (msg) {
-    // console.log('I received a ping back from', socket.gateway.serial);
     socket.gateway.lastHeartbeat = new Date();
+
     if (pinging == 0) 
     {
       var message = {body: "Gateway " + socket.gateway.serial + " started to ping back.", class: "info"};
@@ -111,27 +101,23 @@ io.on('connection', function (socket) {
 
   var ping = function()
   {
-  	if (login)
+  	var now = new Date();
+  	var diff = now.getTime() - socket.gateway.lastHeartbeat.getTime();
+  	if (diff > interval*5)
   	{
-	  	var now = new Date();
-	  	var diff = now.getTime() - socket.gateway.lastHeartbeat.getTime();
-	  	if (diff > interval*5)
-	  	{
-	  		    console.log('ALERT! No pingback');
-	  
-    		    var message = {body: "Gateway " + socket.gateway.serial + " did not ping back.", class: "warning"};
-            var gateway = {serial: socket.gateway.serial, type: socket.gateway.type, class: "warning"};
-            Heartbeat.publishCreate({id: -1, message: message, gateway: gateway});
-    
-            socket.emit('ping',0);
-            pinging = 0;
-	  	}
-	  	else
-	  	{
-        socket.emit('ping',0);
-        setTimeout(ping, Math.max(1000,(interval*5)-diff));
-	  		// console.log('Timeout: ', (interval*5)-diff);
-	  	}
+  		    console.log('ALERT! No pingback');
+  
+  		    var message = {body: "Gateway " + socket.gateway.serial + " did not ping back.", class: "warning"};
+          var gateway = {serial: socket.gateway.serial, type: socket.gateway.type, class: "warning"};
+          Heartbeat.publishCreate({id: -1, message: message, gateway: gateway});
+  
+          socket.emit('ping',pinging);
+          pinging = 0;
+  	}
+  	else
+  	{
+      socket.emit('ping',pinging);
+      setTimeout(ping, Math.max(1000,(interval*5)-diff));
   	}
   }
 

@@ -7,11 +7,12 @@
 
 module.exports = {
 
+  connection: 'someMongodbServer',
+
   attributes: {
   	serial :
   	{
-  		type : "string",
-  		required : true
+  		type : "string"
   	},
 
   	type :
@@ -19,7 +20,6 @@ module.exports = {
   		type : "string",
   		required : true
   	}
-    
   }
 };
 

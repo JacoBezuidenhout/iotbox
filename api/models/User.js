@@ -8,7 +8,27 @@
 module.exports = {
 
   attributes: {
-
+  	name : {
+  		type: 'string'
+  	},
+  	surname : {
+  		type: 'string'
+  	},
+  	email : {
+  		type: 'email'
+  	},
+  	password : {
+  		type: 'password'
+  	},
+  	gateways : {
+  		type: 'array'
+  	}
+  },
+  toJSON : function()
+  {
+  	var obj = this.toObject();
+    delete obj.password;
+    return obj;
   }
 };
 

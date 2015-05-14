@@ -63,10 +63,10 @@
 								    <div class="thumbnail">
 								      	<img src="/images/{{node.icon}}" style="width:75px;" alt="{{node.type}}">
 								      	<div class="caption" style="padding-top:0px;">
-								        	<h4 class="text-center">#{{node.serial}}</h4>
+								        	<h4 class="text-center">#{{node._id}}</h4>
 								        	<p class="text-center"><small>Type: {{node.type}}</small></p>
 									        <p ng-show="node.modules" class="text-center">
-									        	<img ng-animate="'animate'" ng-repeat="module in node.modules" class="img_badge" src="/images/{{module.icon}}"/> 
+									        	<img ng-animate="'animate'" ng-repeat="module in node.modules" class="img_badge" src="/images/48x48/{{module}}.png"/> 
 									        </p>
 								      	</div>
 								    </div>

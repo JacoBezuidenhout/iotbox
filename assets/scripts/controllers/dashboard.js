@@ -11,13 +11,11 @@
 angular.module('iotboxApp')
  .controller('DashboardCtrl', function ($scope, $sails) {
 
- 	$scope.gateways = [
-    	{serial: 'EDISON0123', type:'EDISON1.0', nodes:[{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'cdf'+Math.trunc(Math.random()*1000), icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'d1a', icon: 'XB8LP.png', type:'XB8LP'}]},
-    	{serial: 'EDISON4567', type:'EDISON1.0', nodes:[{serial:'cf0', icon: 'XB8LP.png' ,type:'XB8LP'},{serial:'d2e', icon: 'XB8LP.png', type:'XB8LP'}]}
-    ];
+ 	$scope.gateways = [];
 
     $sails.get("/gateway")
       	.success(function (data, status, headers, jwr) {
+    		$scope.gateways = data;
     		console.log("got gateways")
       	})
       	.error(function (data, status, headers, jwr) {
@@ -26,8 +24,8 @@ angular.module('iotboxApp')
 
     // Watching for updates
     $sails.on("gateway", function (message) {
-    		$scope.messages = [];
-    		$scope.messages.push(message.data);
+    	// alert(message.data);
+    	$scope.gateways.push(message.data);
     });
 
     $scope.nodes = [];
@@ -93,20 +91,21 @@ angular.module('iotboxApp')
     }
 
     $scope.getNodes = function(serial)
-    {
-    	$scope.gateways.map( function (a) { 
+    {   	
+    	$sails.get("/node/byGateway?serial="+serial)
+      	.success(function (data, status, headers, jwr) {
+    		$scope.nodes = data;
+    		console.log("got nodes",data)
+      	})
+      	.error(function (data, status, headers, jwr) {
+       		alert('Houston, we got a problem!');
+      	});
 
-    		if (a.serial == serial) 
-    		{
-    			$scope.nodes = a.nodes; 
-    			$scope.nodes.map( function (b) 
-    			{
-    				b.modules = getModules(b.serial);
-
-    			});
-    		}
-
-    	});
+	    // Watching for updates
+	    // $sails.on("node", function (message) {
+	    // 	alert(message.data);
+	    // 	$scope.gateways.push(message.data);
+	    // });
     }
     
 

@@ -9,7 +9,15 @@ module.exports = {
   	migrate: 'safe',
   	connection: 'someMongodbServer',
   	attributes: {
-
+  		gateway: {
+  			type: 'string'
+  		},
+  		node: {
+  			type: 'string'
+  		},
+  		module: {
+  			type: 'string'
+  		}
   }
 };
 
