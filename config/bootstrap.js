@@ -72,6 +72,7 @@ io.on('connection', function (socket)
         msg.status = status;
         Datapoint.create(msg).exec(function createCB(err,created){
           console.log('Datapoint created',created,cs);
+          Datapoint.publishCreate(created);
         });
       });
     });

@@ -36,7 +36,7 @@ socket.on('login', function(data)
 	    else 
 	    {
 	      	console.log("JSON saved to " + settings_filename);
-		    var serial = 'Node' + Math.trunc(Math.random()*1024000);
+		    var serial = "Node501762";//'Node' + Math.trunc(Math.random()*1024000);
 		    setInterval(function()
 		    {  
 		      send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
