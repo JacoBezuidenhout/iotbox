@@ -40,12 +40,12 @@ socket.on('login', function(data)
 		    setInterval(function()
 		    {  
 		      send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
-		      send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
-		      send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
-		      send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
-		      send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
-		      send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
-		      send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
+		      // send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
+		      // send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
+		      // send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
+		      // send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
+		      // send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
+		      // send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
 		    }, 1000);
 	    }
 	});

@@ -4,8 +4,20 @@
 		width: 25px;
 	}
 </style>
+ <style>
+        .popup-label {
+            padding: 1px;
+            margin: 0;
+        }
+        .popup-label img {
+            border-radius: 4px;
+            padding: 0;
+            margin: 0;
+        }
+</style>
 <link rel="stylesheet" href="styles/main.css">
-
+<link rel="stylesheet" href="bower_components/openlayers3/build/ol.css">
+<link rel="stylesheet" href="bower_components/angular-openlayers-directive/dist/angular-openlayers-directive.css" />
 
 <!-- Add your site or application content here -->
 
@@ -63,7 +75,11 @@
     <div class="col-md-4" style="overflow: hidden;">
         <div class="panel panel-default">
 			<div class="panel-heading">
-			    <h3 class="panel-title">Gateways</h3>
+		      <h4 class="panel-title">
+		        <a data-parent="#accordion" href="" aria-expanded="true" onclick="$('#collapseOne').toggle(200);">
+		          Gateways
+		        </a>
+		      </h4>
 			</div>
 			<div class="panel-body">
 
@@ -71,14 +87,12 @@
 		    	<p>Please add a gateway</p>
 		    </div>
 
-			<div ng-repeat="gateway in gateways" ng-show="gateways.length" class="alert alert-info">
-				<a href="" ng-click="getNodes(gateway.serial)">
-				<div>
-					<small>
-					    {{gateway.id}}
-					</small>
-				</div>
-				</a>
+		    <div class="list-group">
+			  <a ng-repeat="gateway in gateways" ng-show="gateways.length" href="" ng-click="getNodes(gateway.serial)" 
+			  	class="list-group-item {{gateway.class}}">
+			    <h4 class="list-group-item-heading ">{{gateway.id}}</h4>
+			    <p class="list-group-item-text">{{gateway.type}}</p>
+			  </a>
 			</div>
 
 		  </div>
@@ -86,62 +100,102 @@
     </div>
 
     <!-- Page Content -->
-    <div class="col-md-8">
+	<div class="col-md-8">
+	    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-    <div ng-repeat="message in messages" ng-show="message" class="alert alert-{{message.class}}" role="alert">
-  		{{message.message}}
-	</div>
-
-    <!-- <a href="#menu-toggle" class="btn btn-default" style="position: fixed; right: 10px; top: 10px;" id="menu-toggle">Toggle Menu</a> -->
-        <div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-					  <div class="panel-heading">
-					    <h3 class="panel-title">Nodes</h3>
-					  </div>
-					  <div class="panel-body" style="max-height: 250px; overflow-y:scroll;">
-
-					    <div class="alert alert-info" ng-hide="nodes.length > 0" class="row">
-					    	<p>Please select a gateway to see it's nodes</p>
-					    </div>
-
-					    <div ng-show="nodes.length > 0" class="row">
-							<a ng-animate="'animate'" ng-repeat="node in nodes" href="" ng-click="drawGraph(node._id)">
-								<div class="col-sm-6 col-md-3">
-								    <div class="thumbnail">
-								      	<img src="/images/{{node.icon}}" style="width:75px;" alt="{{node.type}}">
-								      	<div class="caption" style="padding-top:0px;">
-								        	<h4 class="text-center">#{{node._id}}</h4>
-								        	<p class="text-center"><small>Type: {{node.type}}</small></p>
-									        <p ng-show="node.modules" class="text-center">
-									        	<img ng-animate="'animate'" ng-repeat="module in node.modules" class="img_badge" src="/images/48x48/{{module}}.png"/> 
-									        </p>
-								      	</div>
-								    </div>
-								</div>
-							</a>
-						</div>
-
-					  </div>
-					</div>	
-                </div>
-            </div>
-        </div>
-
-		<div class="row" ng-show="graphData.length">
-			<graph data="graphData" height=400>
-		        <x field="timestamp" type="Time" format="%c" title='Date'></x>
-		        <!-- <x field="timestamp" type="Time" format="%Y-%m-%dT%H:%M:%S.%LZ"></x> -->
-		        <y field="value" title='Value'></y>
-		        <graph-legend></graph-legend>
-		        <line field="module" label="module"></line>
-		    </graph>
+	    <div ng-repeat="message in messages" ng-show="message" class="alert alert-{{message.class}}" role="alert">
+	  		{{message.message}}
 		</div>
 
-    </div>
-    <!-- /#page-content-wrapper -->
+	    <!-- <a href="#menu-toggle" class="btn btn-default" style="position: fixed; right: 10px; top: 10px;" id="menu-toggle">Toggle Menu</a> -->
+	        <div>
+	            <div class="row">
+	                <div class="col-lg-12">
+	                    <div class="panel panel-default">
+						     <div class="panel-heading" role="tab" id="headingOne">
+						      <h4 class="panel-title">
+						        <a data-parent="#accordion" href="" aria-expanded="true" onclick="$('#collapseOne').toggle(200);">
+						          Nodes
+						        </a>
+						      </h4>
+						    </div>
+							<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+							  	<div class="panel-body" style="max-height: 250px; overflow-y:scroll;">
+								    <div class="alert alert-info" ng-hide="nodes.length > 0" class="row">
+								    	<p>Please select a gateway to see it's nodes</p>
+								    </div>
+								    <div ng-show="nodes.length > 0" class="row">
+										<a ng-animate="'animate'" ng-repeat="node in nodes" href="" ng-click="drawGraph(node._id)">
+											<div class="col-sm-6 col-md-3">
+											    <div class="thumbnail">
+											      	<img src="/images/{{node.icon}}" style="width:75px;" alt="{{node.type}}">
+											      	<div class="caption" style="padding-top:0px;">
+											        	<h4 class="text-center">#{{node._id}}</h4>
+											        	<p class="text-center"><small>Type: {{node.type}}</small></p>
+												        <p ng-show="node.modules" class="text-center">
+												        	<img ng-animate="'animate'" ng-repeat="module in node.modules" class="img_badge" src="/images/48x48/{{module}}.png"/> 
+												        </p>
+											      	</div>
+											    </div>
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>	
+	                </div>
+	            </div>
+	        </div>
 
+			<div class="row" ng-show="graphData.length">
+				<div class="col-lg-12">
+	                <div class="panel panel-default">
+					  	<div class="panel-heading">
+					    	<h3 class="panel-title">
+						    	<a data-parent="#accordion" href="" onclick="$('#collapseTwo').toggle(200);">
+							    	Graph
+							    </a>
+					    	</h3>
+					  	</div>
+					  	<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						  	<div class="panel-body">
+								<graph data="graphData" height=400>
+							        <x field="timestamp" type="Time" format="%c" title='Date'></x>
+							        <!-- <x field="timestamp" type="Time" format="%Y-%m-%dT%H:%M:%S.%LZ"></x> -->
+							        <y field="value" title='Value'></y>
+							        <graph-legend></graph-legend>
+							        <line field="module" label="module"></line>
+							    </graph>
+			    			</div>	
+		    			</div>	
+		        	</div>
+				</div>
+			</div>
+
+			<div class="row" ng-show="graphData.length">
+				<div class="col-lg-12">
+	                <div class="panel panel-default">
+					  	<div class="panel-heading">
+					    	<h3 class="panel-title">
+						    	<a data-parent="#accordion" href="" onclick="$('#collapseThree').toggle(200);">
+							    	Map
+							    </a>
+					    	</h3>
+					  	</div>
+					  	<div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						  	<div class="panel-body">
+								<openlayers ol-center="center" height="400px" width="100%">
+									<ol-marker ng-repeat="marker in markers" ol-marker-properties="marker" ></ol-marker>		
+								</openlayers>
+			    			</div>	
+		    			</div>	
+		        	</div>
+				</div>
+			</div>
+
+	    </div>
+	    <!-- /#page-content-wrapper -->
+	</div>
 </div>
 
 

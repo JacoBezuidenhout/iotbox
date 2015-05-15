@@ -12,10 +12,47 @@ angular.module('iotboxApp')
  .controller('DashboardCtrl', function ($scope, $sails) 
 {
 
+    angular.extend($scope, {
+        center: {
+            lat: -26.858093,
+            lon: 25.294694,
+            zoom: 5
+        }
+    });
+
  	$scope.gateways = [];
     $scope.nodes = [];
     $scope.modules = [];
     $scope.graphData = [];
+    $scope.markers = [
+            	{
+                    lat: -26.858093,
+                    lon: 25.294694,
+                    label: {
+                        message: '<h1>A</h1>',
+                        show: false,
+                        showOnMouseOver: true
+                    }
+                },
+                {
+                    lat: -27.858093,
+                    lon: 25.294694,
+                    label: {
+                        message: '<h1>B</h1>',
+                        show: false,
+                        showOnMouseOver: true
+                    }
+                },
+                {
+                    lat: -25.858093,
+                    lon: 25.294694,
+                    label: {
+                        message: '<h1>C</h1>',
+                        show: false,
+                        showOnMouseOver: true
+                    }
+                }
+        ];
 
  	$scope.newCount = 0;
 
@@ -30,7 +67,7 @@ angular.module('iotboxApp')
     $sails.get("/gateway")
       	.success(function (data, status, headers, jwr) {
     		$scope.gateways = data;
-    		// console.log("got gateways")
+    		// console.log("got gateways",data)
       	})
       	.error(function (data, status, headers, jwr) {
        		alert('Houston, we got a problem!');
@@ -39,48 +76,73 @@ angular.module('iotboxApp')
     // Watching for updates
     $sails.on("gateway", function (message) {
     	// alert(message.data);
-    	$scope.gateways.push(message.data);
+    	$scope.$applyAsync(function() 
+    	{
+    		$scope.gateways.push(message.data);
+    	});
     });
 
 	$sails.on("datapoint", function (message) {
+
 		if (message.data.node == $scope.currentNode)
-		{
-			$scope.newCount++;
-			console.log(message);
+		{	
+			$scope.$applyAsync(function() {
+				$scope.newCount++;
+				message.data.timestamp = Date.parse(message.data.createdAt);
+				var arr = $scope.graphData;
+				// arr.pop();
+				arr.unshift(message.data);
+				$scope.graphData = angular.copy(arr);
+	    	});
 		}
+			console.log(message);
 	});
 
     $scope.drawGraph = function(serial,module)
     {
-    	var defaultSettings = {delta: {time: 300, value: 2}, min: -20, max: 65, safe: {min: 15, max: 35}};
-
-		$sails.get("/datapoint/?node=" + serial + "&limit=100&sort=createdAt%20desc")
-	    .success(function (data, status, headers, jwr) {
-	    	$scope.graphData = data.map(function(obj){ 
-			   var rObj = obj;
-			   rObj.timestamp = Date.parse(obj.createdAt);
-			   return rObj;
-			});
-			$scope.node = serial;
-	    	console.log("got datapoints",$scope.graphData);
-	    })
-	    .error(function (data, status, headers, jwr) {
-	    	alert('Houston, we got a problem!');
-	    });
+    	$scope.$applyAsync(function() 
+    	{
+	    	$('#collapseTwo').show(200);
+	    	var defaultSettings = {delta: {time: 300, value: 2}, min: -20, max: 65, safe: {min: 15, max: 35}};
+			$sails.get("/datapoint/?node=" + serial + "&limit=100&sort=createdAt%20desc")
+		    .success(function (data, status, headers, jwr) {
+		    	$scope.graphData = data.map(function(obj){ 
+				   var rObj = obj;
+				   rObj.timestamp = Date.parse(obj.createdAt);
+				   return rObj;
+				});
+				$scope.currentNode = serial;
+		    	console.log("got datapoints",$scope.graphData);
+		    })
+		    .error(function (data, status, headers, jwr) {
+		    	alert('Houston, we got a problem!');
+		    });
+		});
     };
 
     $scope.getNodes = function(serial)
     {   
-    	$scope.newCount = 0;	
-    	$scope.graphData = [];	
-    	$scope.currentNode = serial;
-    	$sails.get("/node/byGateway?serial="+serial)
-      	.success(function (data, status, headers, jwr) {
-    		$scope.nodes = data;
-    		console.log("got nodes",data)
-      	})
-      	.error(function (data, status, headers, jwr) {
-       		alert('Houston, we got a problem!');
+    	$scope.$applyAsync(function() 
+    	{
+	    	$scope.newCount = 0;	
+	    	$scope.graphData = [];	
+	    	$scope.currentNode = serial;
+	    	
+	    	$scope.gateways.forEach(function(gateway){
+	    		if (gateway.serial == serial)
+	    			gateway['class'] = "active";
+	    		else
+	    			gateway['class'] = "";
+	    	});
+
+	    	$sails.get("/node/byGateway?serial="+serial)
+	      	.success(function (data, status, headers, jwr) {
+	    		$scope.nodes = data;
+	    		console.log("got nodes",data)
+	      	})
+	      	.error(function (data, status, headers, jwr) {
+	       		alert('Houston, we got a problem!');
+	      	});
       	});
     };
     

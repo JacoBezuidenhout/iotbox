@@ -4,7 +4,8 @@ angular
     'ngRoute',
     'ngAnimate',
     'ngSails',
-    'angular-dimple'
+    'angular-dimple',
+    'openlayers-directive'
   ])
   .config(function ($routeProvider) {
     $routeProvider
