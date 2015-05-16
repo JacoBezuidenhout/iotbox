@@ -23,13 +23,13 @@ io.on('connection', function (socket)
 
   var getStatus = function(line,cb)
   {
-    Node.findOne({serial: line.node},function(err,node){
-      console.log(err,node);
-      if (line.value > node.settings.safe.min && line.value < node.settings.safe.max)
+    // Node.findOne({serial: line.node},function(err,node){
+    //   console.log(err,node);
+    //   if (line.value > node.settings.safe.min && line.value < node.settings.safe.max)
         cb('success');
-      else
-        cb('danger');
-    });
+    //   else
+    //     cb('danger');
+    // });
   }
 
   socket.on('login', function (msg) 

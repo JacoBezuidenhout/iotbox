@@ -23,7 +23,10 @@ angular.module('iotboxApp')
  	$scope.gateways = [];
     $scope.nodes = [];
     $scope.modules = [];
+    $scope.moduleTypes = ["BATE1_0","HUMI1_0","LIGH1_0","TEMP1_0"];
     $scope.graphData = [];
+    $scope.messages = [];
+    $scope.datapointLimit = 100;
     $scope.markers = [
             	{
                     lat: -26.858093,
@@ -100,11 +103,12 @@ angular.module('iotboxApp')
 
     $scope.drawGraph = function(serial,module)
     {
+    	if (module) serial += ("&module="+module);
     	$scope.$applyAsync(function() 
     	{
 	    	$('#collapseTwo').show(200);
 	    	var defaultSettings = {delta: {time: 300, value: 2}, min: -20, max: 65, safe: {min: 15, max: 35}};
-			$sails.get("/datapoint/?node=" + serial + "&limit=100&sort=createdAt%20desc")
+			$sails.get("/datapoint/?node=" + serial + "&limit=" +  $scope.datapointLimit + "&sort=createdAt%20desc")
 		    .success(function (data, status, headers, jwr) {
 		    	$scope.graphData = data.map(function(obj){ 
 				   var rObj = obj;
@@ -112,6 +116,7 @@ angular.module('iotboxApp')
 				   return rObj;
 				});
 				$scope.currentNode = serial;
+				$scope.module = module;
 		    	console.log("got datapoints",$scope.graphData);
 		    })
 		    .error(function (data, status, headers, jwr) {
@@ -130,9 +135,9 @@ angular.module('iotboxApp')
 	    	
 	    	$scope.gateways.forEach(function(gateway){
 	    		if (gateway.serial == serial)
-	    			gateway['class'] = "active";
+	    			gateway['class'] = "success";
 	    		else
-	    			gateway['class'] = "";
+	    			gateway['class'] = "info";
 	    	});
 
 	    	$sails.get("/node/byGateway?serial="+serial)
@@ -144,6 +149,43 @@ angular.module('iotboxApp')
 	       		alert('Houston, we got a problem!');
 	      	});
       	});
+    };
+
+    $scope.editNode = function(serial)
+    {   
+    	$scope.$applyAsync(function() 
+    	{
+	    	$sails.get("/node?serial="+serial)
+	      	.success(function (data, status, headers, jwr) {
+	    		// var node = data[0];
+	    		// node.createdAt = new Date(node.createdAt).toDateString();
+	    		$scope.n = data[0];
+	    		console.log("got nodes",data)
+	      	})
+	      	.error(function (data, status, headers, jwr) {
+	       		alert('Houston, we got a problem!');
+	      	});
+      	});
+    };
+
+    $scope.saveNode = function()
+    {
+    	 console.log('Save',$scope.n);
+    	io.socket.post('/node/update/' + $scope.n.id, $scope.n, function (resData) {
+		  console.log(resData); // => {id:9, name: 'Timmy Mendez'}
+		  $scope.n = 0;
+		    $scope.$applyAsync(function() 
+    		{
+    			$scope.messages.push({body: 'Changes successfully saved.', class: 'success'});
+	   		});
+	   		setTimeout(function(){
+	   			$scope.$applyAsync(function() 
+				{
+					$scope.messages.shift();
+				});
+	   		},3000);
+		});
+
     };
     
 });
