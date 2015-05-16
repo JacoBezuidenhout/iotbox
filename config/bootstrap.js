@@ -35,7 +35,7 @@ io.on('connection', function (socket)
   socket.on('login', function (msg) 
   {
     console.log('Logging In...', msg);
-    Gateway.findOrCreate({id: msg.id}, msg).exec(function createFindCB(err,gateway)
+    Gateway.findOrCreate({serial: msg.serial}, msg).exec(function createFindCB(err,gateway)
     {
       console.log('Gateway', gateway, "logged in.");
 

@@ -1,10 +1,10 @@
 {
-    "type": "Intel Edison 1.0",
     "createdAt": "2015-05-14T10:04:13.018Z",
-    "updatedAt": "2015-05-15T17:38:25.612Z",
-    "serial": "Gateway55562b623cfab0200a8efd34",
-    "lastConnect": "2015-05-15T17:41:12.891Z",
-    "success": "success",
+    "id": "5556366eccbb22f20c9922c3",
     "interval": 1000,
-    "id": "55562b623cfab0200a8efd34"
+    "lastConnect": "2015-05-15T18:11:06.844Z",
+    "serial": "Gateway55562b623cfab0200a8efd34",
+    "success": "success",
+    "type": "Intel Edison 1.0",
+    "updatedAt": "2015-05-15T18:09:50.737Z"
 }

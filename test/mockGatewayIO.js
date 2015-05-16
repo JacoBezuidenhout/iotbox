@@ -8,8 +8,8 @@ var settings = require(settings_filename);
 
 var queue = {};
 
-// var socket = require('socket.io-client')('http://api.iotbox.work');
-var socket = require('socket.io-client')('http://localhost:5000');
+var socket = require('socket.io-client')('http://api.iotbox.work');
+// var socket = require('socket.io-client')('http://localhost:5000');
 var run;
 console.log("Connecting...");
 
@@ -46,7 +46,7 @@ socket.on('login', function(data)
 		      // send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
 		      // send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
 		      // send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
-		    }, 1000);
+		    }, Math.trunc(Math.random()*50000));
 	    }
 	});
 
