@@ -8,28 +8,20 @@
  * Controller of the iotboxApp
  */
 angular.module('iotboxApp')
-  .controller('MainCtrl', function ($scope, $sails) {
-    $scope.awesomeThings = [ 
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-    $scope.gateways = [];
+  .controller('MainCtrl', function ($scope, $rootScope, $sails) {
+    
 
-    	$sails.get("/gateway")
-      	.success(function (data, status, headers, jwr) {
-    		$scope.gateways.forEach(function(gateway){
-		    	gateway.nodes.forEach(function(node){
-					node.modules = getModules(node.serial);
-				});
-			});
-        	$scope.gateways = data;
-      	})
-      	.error(function (data, status, headers, jwr) {
-       		alert('Houston, we got a problem!');
-      	});
+    $sails.get("/me")
+	      	.success(function (data, status, headers, jwr) {
+		    	if (data.email)
+		    		$scope.login = true;
+		    	$scope.user = data;
+	      	})
+	      	.error(function (data, status, headers, jwr) {
+	       		$scope.login = false;
+		    	$scope.user = {};
+	      	});
 
-      	 $sails.on("gateway", function (message) {
-      	 		console.log(message);
-      	 });
+
+
   });

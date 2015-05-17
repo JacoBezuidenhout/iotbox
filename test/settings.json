@@ -1,9 +1,9 @@
 {
     "createdAt": "2015-05-15T23:25:30.067Z",
-    "lastConnect": "2015-05-17T10:00:51.784Z",
+    "lastConnect": "2015-05-17T20:03:48.194Z",
     "serial": "Gateway5556806aee16297f0f339397",
     "type": "Intel Edison 1.0",
-    "updatedAt": "2015-05-17T09:58:57.744Z",
+    "updatedAt": "2015-05-17T20:03:21.550Z",
     "success": "success",
     "interval": 1000,
     "id": "5556806aee16297f0f339397"

@@ -8,11 +8,10 @@
 var io = require('socket.io')(5000);
 var checksum = require('checksum');
 var interval = 1000;
-var clients = [];
+var clients = {};
 
 // io.set('heartbeat interval', 10);
 // io.set('heartbeat timeout', 35);
-//var defaultSettings = {delta: {time: 300, value: 2}, min: -20, max: 65, safe: {min: 15, max: 35}};
 io.on('connection', function (socket) 
 {
   console.log("New Connection Made");
@@ -50,8 +49,7 @@ io.on('connection', function (socket)
       
       socket.gateway = gateway;
       var client = {};
-      client[gateway.id] = socket.id;
-      clients.push(client);
+      clients[gateway.id] = socket;
       socket.gateway.lastHeartbeat = new Date();
 
       var message = {body: "Gateway " + socket.gateway.serial + " logged in.", class: "success"};
@@ -145,11 +143,19 @@ io.on('connection', function (socket)
 });
 
 module.exports = {
-	sendSettings : function(req,res)
+  sendSettings : function(req,res)
+  {
+    var params = req.params.all();
+    console.log("settings",clients);
+    clients[params.gateway].emit('settings',params.node);
+    res.json({success:true});
+  },
+  sendCommand : function(req,res)
 	{
-		console.log("settings",clients);
-		
-		res.json(clients);
+		var params = req.params.all();
+    console.log("settings",clients);
+		clients[params.gateway].emit('cmd',params.cmd);
+		res.json({success:true});
 	}
 };
 

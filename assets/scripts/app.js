@@ -16,6 +16,10 @@ angular
       .when('/dashboard', {
         templateUrl: 'views/dashboard.html',
         controller: 'DashboardCtrl'
+      })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
       })      
       .when('/heartbeat', {
         templateUrl: 'views/heartbeat.html',
