@@ -170,33 +170,38 @@
 					  	</div>
 					  	<div id="collapseEdit" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 						  	<div class="panel-body">
-							  	<div class="col-md-3 text-center">
-							  		<img src="/images/{{n.type}}.png" style="height:150px;">
-							  	</div>
-							  	<div class="col-md-3">
+							  	<div class="col-md-4 text-center">
+							  		<img src="/images/{{n.type}}.png" class="img-responsive">
 					        		<h4 class="text-center"><strong>{{n.serial}}</strong></h4>
 						        	<p class="text-center"><small><strong>Type:</strong> <br/>{{n.type}}</small></p>		
 						        	<p class="text-center"><small><strong>CreatedAt:</strong> <br/>{{n.createdAt}}</small></p>		
 						        	<p class="text-center"><small><strong>UpdatedAt:</strong> <br/>{{n.updatedAt}}</small></p>		
 							  	</div>
-							  	<div class="col-md-6  text-center">
-
+							  	<div class="col-md-8  text-center">
 					        		<h4 class="text-center">Settings</h4>
-								  	<form class="form">
-								  		<div class="input-group" ng-repeat="setting in n.settings">
-										  	<span class="input-group-addon" style="width:120px;" ng-bind="setting.key"></span>
-							    			<div class="input-group" ng-repeat="set in setting.value">
-											  	<span class="input-group-addon"  style="width:80px;" ng-bind="set.key"></span>
-								    			<input type="number" class="form-control" ng-model="set.value" />
-											</div>
-										</div>
-					    				
-										</br>
-										<div class="text-center">
-											<button class="btn btn-success" ng-click="saveNode();">Save</button>
-											<button class="btn btn-danger" ng-click="n=0">Cancel</button>
-										</div>
-									</form>
+					        		<table class="table">
+					        			<tr ng-repeat="setting in n.settings">
+					        				<td>
+					        					<select ng-model="setting.module">
+					        						<option value="{{setting.module}}">{{setting.module}}</option>
+					        						<option ng-repeat="m in moduleTypes" ng-hide="setting.module == m" value="{{m}}">{{m}}</option>
+					        					</select>
+					        				</td>
+					        				<td>{{setting.key}}</td>
+					        				<td>
+								    			<div class="input-group" ng-repeat="set in setting.value">
+												  	<span class="input-group-addon"  style="width:80px;" ng-bind="set.key"></span>
+									    			<input type="number" class="form-control" ng-model="set.value" />
+												</div>
+											</td>
+					        			</tr>
+					        		</table>
+				    				
+									</br>
+									<div class="text-center">
+										<button class="btn btn-success" ng-click="saveNode();">Save</button>
+										<button class="btn btn-danger" ng-click="n=0">Cancel</button>
+									</div>
 							  	</div>
 			    			</div>	
 		    			</div>	

@@ -23,7 +23,7 @@ angular.module('iotboxApp')
  	$scope.gateways = [];
     $scope.nodes = [];
     $scope.modules = [];
-    $scope.moduleTypes = ["BATE1_0","HUMI1_0","LIGH1_0","TEMP1_0"];
+    $scope.moduleTypes = ["All","BATE1_0","HUMI1_0","LIGH1_0","TEMP1_0"];
     $scope.graphData = [];
     $scope.messages = [];
     $scope.datapointLimit = 100;
@@ -33,24 +33,6 @@ angular.module('iotboxApp')
                     lon: 25.294694,
                     label: {
                         message: '<h1>A</h1>',
-                        show: false,
-                        showOnMouseOver: true
-                    }
-                },
-                {
-                    lat: -27.858093,
-                    lon: 25.294694,
-                    label: {
-                        message: '<h1>B</h1>',
-                        show: false,
-                        showOnMouseOver: true
-                    }
-                },
-                {
-                    lat: -25.858093,
-                    lon: 25.294694,
-                    label: {
-                        message: '<h1>C</h1>',
                         show: false,
                         showOnMouseOver: true
                     }
@@ -83,6 +65,15 @@ angular.module('iotboxApp')
     	{
     		$scope.gateways.push(message.data);
     	});
+    });    
+
+    // Watching for updates
+    $sails.on("nodes", function (message) {
+    	// alert(message.data);
+    	$scope.$applyAsync(function() 
+    	{
+    		$scope.gateways.push(message.data);
+    	});
     });
 
 	$sails.on("datapoint", function (message) {
@@ -107,7 +98,6 @@ angular.module('iotboxApp')
     	$scope.$applyAsync(function() 
     	{
 	    	$('#collapseTwo').show(200);
-	    	var defaultSettings = {delta: {time: 300, value: 2}, min: -20, max: 65, safe: {min: 15, max: 35}};
 			$sails.get("/datapoint/?node=" + serial + "&limit=" +  $scope.datapointLimit + "&sort=createdAt%20desc")
 		    .success(function (data, status, headers, jwr) {
 		    	$scope.graphData = data.map(function(obj){ 
@@ -170,9 +160,17 @@ angular.module('iotboxApp')
 
     $scope.saveNode = function()
     {
-    	 console.log('Save',$scope.n);
-    	io.socket.post('/node/update/' + $scope.n.id, $scope.n, function (resData) {
-		  console.log(resData); // => {id:9, name: 'Timmy Mendez'}
+    	console.log('Save',$scope.n);
+
+    	for (var i = 0; i < $scope.n.settings.length; i++) {
+    		delete $scope.n.settings[i].$$hashKey;
+    		for (var j = 0; j < $scope.n.settings[i].value.length; j++) {
+    			delete $scope.n.settings[i].value[j].$$hashKey;
+    		};
+    	};
+
+    	$sails.post('/node/update/', $scope.n, function (resData) {
+		  console.log(resData); 
 		  $scope.n = 0;
 		    $scope.$applyAsync(function() 
     		{
