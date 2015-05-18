@@ -1,0 +1,57 @@
+<!-- node.html -->
+<div class="panel panel-default">
+  	<div class="panel-heading">
+    	<h3 class="panel-title">
+	    	<a data-parent="#accordion" href="" onclick="$('#collapseEditNode').toggle(200);">
+		    	Edit Node
+		    </a>
+    	</h3>
+  	</div>
+  	<div id="collapseEditNode" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+	  	<div class="panel-body">
+		  	<div class="col-md-4 text-center">
+		  		<img src="/images/{{n.type}}.png" class="img-responsive">
+        		<h4 class="text-center"><strong>{{n.serial}}</strong></h4>
+	        	<p class="text-center"><small><strong>Type:</strong> <br/>{{n.type}}</small></p>		
+	        	<p class="text-center"><small><strong>CreatedAt:</strong> <br/>{{n.createdAt}}</small></p>		
+	        	<p class="text-center"><small><strong>UpdatedAt:</strong> <br/>{{n.updatedAt}}</small></p>		
+		  	</div>
+		  	<div class="col-md-8  text-center">
+        		<h4 class="text-center">Settings</h4>
+
+        		<table class="table">
+        			<tr ng-repeat="setting in n.settings" class="{{setting.class}}" >
+        				<td>
+        					<select class="form-control" ng-model="setting.module">
+        						<option value="{{setting.module}}">{{setting.module}}</option>
+        						<option ng-repeat="m in moduleTypes" ng-hide="setting.module == m" value="{{m}}">{{m}}</option>
+        					</select>
+        				</td>
+        				<td>
+        					<select class="form-control" ng-model="setting.key" ng-change="setting.value = moduleOptionDefaults[setting.key]">
+        						<option value="{{setting.key}}">{{setting.key}}</option>
+        						<option ng-repeat="key in moduleOptions" ng-hide="setting.key == key" value="{{key}}">{{key}}</option>
+        					</select>
+        				</td>
+        				<td>
+			    			<div class="input-group" ng-repeat="set in setting.value">
+							  	<span class="input-group-addon"  style="width:80px;" ng-bind="set.key"></span>
+				    			<input type="number" class="form-control" ng-model="set.value" />
+							</div>
+						</td>
+        				<td>
+			    			<input type="button" class="form-control btn btn-danger" ng-click="setting.class = 'danger'" value="X" />
+						</td>
+        			</tr>
+        		</table>
+				
+				</br>
+				<div class="text-center">
+					<button class="btn btn-info" ng-click="addSetting();">Add</button>
+					<button class="btn btn-success" ng-click="saveNode();">Save</button>
+					<button class="btn btn-danger" ng-click="n=0">Cancel</button>
+				</div>
+		  	</div>
+		</div>	
+	</div>	
+</div>

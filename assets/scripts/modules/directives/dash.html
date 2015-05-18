@@ -1,0 +1,35 @@
+<!-- dash.html -->
+<div class="panel panel-default">
+  	<div class="panel-heading">
+	    <div class="row">
+	    	<div class="col-md-6">
+		    	<h3 class="panel-title">
+			    	<a data-parent="#accordion" href="" onclick="$('#collapseDash').toggle(200);">
+				    	Node Dashboard
+				    </a>
+		    	</h3>
+	    	</div>
+	    	<div class="col-md-6">
+		    	<div class="input-group">
+				  	<span class="input-group-addon" id="basic-addon1">Number of Datapoints</span>
+	    			<input type="number" class="form-control" ng-model="datapointLimit" ng-change="drawGraph(currentNode,currrentModule)" placeholder="Number of datapoints" value="100" />
+				</div>
+	    	</div>
+    	</div>
+
+  	</div>
+  	<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+	  	<div class="panel-body">
+			<div ng-show="isActuator(module)" class="well">
+				<button type="button" class="btn btn-primary btn-lg" ng-click="toggleActuator(module)">Toggle Switch</button>
+			</div>
+				<graph data="graphData" height=400>
+			        <x field="timestamp" type="Time" format="%c" title='Date'></x>
+			        <!-- <x field="timestamp" type="Time" format="%Y-%m-%dT%H:%M:%S.%LZ"></x> -->
+			        <y field="value" title='Value'></y>
+			        <graph-legend></graph-legend>
+			        <line field="module" label="module"></line>
+			    </graph>
+		</div>	
+	</div>	
+</div>
