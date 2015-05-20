@@ -1,0 +1,35 @@
+<!-- nodeSettings.html -->
+<div ng-controller="NodeCtrl">
+	<table class="table">
+		<tr ng-repeat="setting in node.settings" class="{{setting.class}}" >
+			<td>
+				<select class="form-control" ng-model="setting.module">
+					<option value="{{setting.module}}">{{setting.module}}</option>
+					<option ng-repeat="moduleType in moduleTypes" ng-hide="setting.module == moduleType" value="{{moduleType}}">{{moduleType}}</option>
+				</select>
+			</td>
+			<td>
+				<select class="form-control" ng-model="setting.key" ng-change="setting.value = moduleOptionDefaults[setting.key]">
+					<option value="{{setting.key}}">{{setting.key}}</option>
+					<option ng-repeat="moduleOption in moduleOptions" ng-hide="setting.key == moduleOption" value="{{moduleOption}}">{{moduleOption}}</option>
+				</select>
+			</td>
+			<td>
+				<div class="input-group" ng-repeat="settingItem in setting.value">
+				  	<span class="input-group-addon"  style="width:80px;" ng-bind="settingItem.key"></span>
+	    			<input type="number" class="form-control" ng-model="settingItem.value" />
+				</div>
+			</td>
+			<td>
+				<input type="button" class="form-control btn btn-danger" ng-click="setting.class = 'danger'" value="X" />
+			</td>
+		</tr>
+	</table>
+
+	</br>
+	<div class="text-center">
+		<button class="btn btn-info" ng-click="settingAdd();">Add</button>
+		<button class="btn btn-success" ng-click="nodeSave();">Save</button>
+		<button class="btn btn-danger" ng-click="nodeReload();">Cancel</button>
+	</div>
+</div>

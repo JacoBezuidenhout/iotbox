@@ -1,37 +1,33 @@
-<!-- nodes.html -->
-<div class="panel panel-default">
- <div class="panel-heading" role="tab" id="headingOne">
-  <h4 class="panel-title">
-    <a data-parent="#accordion" href="" aria-expanded="true" onclick="$('#collapseNodes').toggle(200);">
-      Nodes
-    </a>
-  </h4>
-</div>
-<div id="collapseNodes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-  	<div class="panel-body" style="max-height: 250px; overflow-y:scroll;">
-	    <div class="alert alert-info" ng-hide="nodes.length > 0" class="row">
-	    	<p>Please select a gateway to see it's nodes</p>
-	    </div>
-    	<div ng-show="nodes.length > 0" class="row">
-				<div class="col-sm-6 col-md-3" ng-repeat="node in nodes">
-			    	<div class="thumbnail">
-						<a ng-animate="'animate'" href="" ng-click="drawGraph(node._id)">
-					      	<img src="/images/{{node.type}}.png" style="width:75px;" alt="{{node.type}}">
-					      	<div class="caption" style="padding-top:0px;">
-				        		<h4 class="text-center">#{{node._id}}</h4>
-						</a>
-			        	<p class="text-center"><small>Type: {{node.type}}</small></p>
-				        <div class="text-center">
-					        <p ng-show="node.modules">
-					        	<img ng-repeat="module in node.modules" ng-click="drawGraph(node._id,module)" class="img_badge" src="/images/48x48/{{module}}.png"/> 
-					        </p>
-					        <button class="btn btn-primary btn-sm" ng-click="editNode(node._id);">
-							 	 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
-							</button>
-				        </div>
-			      	</div>
-			    </div>
+<br/>
+	<div class="row">
+		<div class="col-md-6">	
+			<div class="input-group">
+			  	<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-down" aria-hidden="true"></span></span>
+			  	<input type="text" class="form-control" ng-model="nodeSort" placeholder="Sort" aria-describedby="basic-addon1">
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="input-group">
+			  	<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+			  	<input type="text" class="form-control" ng-model="nodeSearch" placeholder="Search" aria-describedby="basic-addon1">
 			</div>
 		</div>
 	</div>
-</div>
+	<br/>
+	<div class="row-fluid" style="height: 150px; overflow-y:scroll;">
+		<div class="col-md-4 panel panel-info" ng-repeat="n in nodes | filter:nodeSearch">
+			<a href="" ng-click="nodeSet(n)">
+				<div class="row">
+					<div class="col-md-12">
+					    <h4>#{{n._id}}</h4>
+					    <p>{{n.type}}</p>
+					    	<div class="col-md-2" ng-repeat="m in n.modules">
+					    		<p>
+					    			<img src="/images/48x48/{{m.id}}.png" style="max-width:250%" />
+					   			 </p>
+					    	</div>
+					</div>
+				</div>
+			</a>	
+		</div>
+	</div>

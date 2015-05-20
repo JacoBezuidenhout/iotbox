@@ -1,28 +1,33 @@
 angular.module('userModule', ['ngSails'])
 .factory('authFactory', ['$sails',function($sails) {
   
-    var user = {};
-
-    var login = function(form){
-      console.log('Login Called',form);
-      user = {name: 'Jaco', email: 'jaco@peoplesoft.co.za'};
-      return user;
+  var me = {};
+  
+    var login = function(identifier,password,cb){
+      console.log('Login Called',identifier,password);
+      me = {name: 'Jaco', email: 'jaco@peoplesoft.co.za'};
+      cb(me);
     };
 
-    var register = function(form){
+    var register = function(form,cb){
       console.log('Register Called',form);
-      user = {name: 'Jaco', email: 'jaco@peoplesoft.co.za'};
-      return user;
+      me = {name: 'Jaco', email: 'jaco@peoplesoft.co.za'};
+      cb(me);
     };
 
     var logout = function(){
       console.log('Logout Called');
-      user = {};
+      me = {};
     };
 
-    var user = function(){
-      console.log(user);
-      return user;
+    var user = function(cb){
+      console.log(me);
+      $sails.get("/me",function(data)
+      {
+        me = data;  
+        console.log('/me', data);
+        cb(me);
+      });
     };
 
   return {
