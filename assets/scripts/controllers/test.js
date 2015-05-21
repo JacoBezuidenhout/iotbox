@@ -24,15 +24,15 @@ angular.module('iotboxApp')
         $scope.$applyAsync(function() 
         {
           $scope.gateway = g;
-          $sails.get("/node/byGateway?serial=" + g.serial)
+          $sails.get("/gateway/" + g.id)
           .success(function (data, status, headers, jwr) {
-            $scope.nodes = data;
-            console.log("got nodes",data)
+            $scope.nodes = data.nodes;
+            $scope.gateway = data.gateway;
+            console.log("got nodes",data);
           })
           .error(function (data, status, headers, jwr) {
             // alert('Houston, we got a problem!');
           });
-          console.log('setGateway',g);
         });
       };
 
@@ -47,14 +47,6 @@ angular.module('iotboxApp')
         {
           console.log('setNode',n);
           $scope.node = n;
-          $sails.get("/node?serial=" + n._id)
-          .success(function (data, status, headers, jwr) {
-            $scope.node.node = data[0];
-            console.log("got nodE",data[0]);
-          })
-          .error(function (data, status, headers, jwr) {
-            // alert('Houston, we got a problem!');
-          });
         });
       };
 
@@ -199,10 +191,12 @@ angular.module('iotboxApp')
       $scope.datapointsGet = function(n,m,l)
       {
         console.log('datapointsGet');
+        //_id = serial
         var query = "/datapoint/?node=" + n._id;
         if (m != "")
           query += "&module=" +  m;
         query += "&limit=" +  l + "&sort=createdAt%20desc";
+
         $scope.$applyAsync(function() 
         {
           $sails.get(query)

@@ -10,8 +10,8 @@ var queue = {};
 
 var state = 0;
 
-var socket = require('socket.io-client')('http://api.iotbox.work');
-// var socket = require('socket.io-client')('http://localhost:5000');
+// var socket = require('socket.io-client')('http://api.iotbox.work');
+var socket = require('socket.io-client')('http://localhost:5000');
 var run;
 console.log("Connecting...");
 
