@@ -19,7 +19,22 @@ module.exports = {
   	{
   		type : "string",
   		required : true
-  	}
+  	},
+
+    settings :
+    {
+      type: "json"
+    },
+
+    nodes :
+    {
+      type: "array"
+    },
+
+    apiCount :
+    {
+      type: "number"
+    }
   }
 };
 

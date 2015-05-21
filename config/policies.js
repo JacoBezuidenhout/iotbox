@@ -22,7 +22,21 @@ module.exports.policies = {
  
  'auth': {
     '*': ['passport']
+  },
+
+  'gateway':{
+      '*': ['gateway/gatewayFind'],
+      'create' : ['gateway/gatewayCreate'],
+      'update' : ['gateway/gatewayCreate'],
+      'delete' : ['gateway/gatewayCreate']
   }
+
+  // 'node':{
+  //     '*': ['node/nodeFind'],
+  //     'create' : ['gateway/gatewayCreate'],
+  //     'update' : ['gateway/gatewayCreate'],
+  //     'delete' : ['gateway/gatewayCreate']
+  // }
   /***************************************************************************
   *                                                                          *
   * Default policy for all controllers and actions (`true` allows public     *
