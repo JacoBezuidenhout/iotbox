@@ -14,37 +14,39 @@ item: message : {body: <MESSAGE_BODY>,class: [success,danger,info,warning]}
  */
 
 angular.module('iotboxApp')
- .controller('HeartbeatCtrl', function ($scope, $sails) {
+ .controller('HeartbeatCtrl', function ($scope, $rootScope, $sails) {
 
- 	$scope.gateways = [];
- 	$scope.messages = [];
- 	$scope.subscribed = false;
- 	$scope.showMessage = true;
+	if ($rootScope.login)
+	{
+	 	$scope.gateways = [];
+	 	$scope.messages = [];
+	 	$scope.subscribed = false;
+	 	$scope.showMessage = true;
 
- 	$sails.get("/heartbeat")
-      	.success(function (data, status, headers, jwr) {
-	    	$scope.subscribed = true;
-      	})
-      	.error(function (data, status, headers, jwr) {
-       		alert('Houston, we got a problem!');
-      	});
+	 	$sails.get("/heartbeat")
+	      	.success(function (data, status, headers, jwr) {
+		    	$scope.subscribed = true;
+	      	})
+	      	.error(function (data, status, headers, jwr) {
+	       		// alert('Houston, we got a problem!');
+	      	});
 
-    // Watching for updates
-    $sails.on("heartbeat", function (message) {
-    	console.log(message.data);
-    	var flag = false;
-    	for (var i = 0; i < $scope.gateways.length; i++) {
-    		if ($scope.gateways[i].serial === message.data.gateway.serial)
-			{
-				flag = true;
-				$scope.gateways[i] = message.data.gateway;
-			}
-    	};
-    	if (!flag) $scope.gateways.push(message.data.gateway);
-    	$scope.messages.unshift(message.data.message);
-    	$scope.showMessage = false;
-    });
-
+	    // Watching for updates
+	    $sails.on("heartbeat", function (message) {
+	    	console.log(message.data);
+	    	var flag = false;
+	    	for (var i = 0; i < $scope.gateways.length; i++) {
+	    		if ($scope.gateways[i].serial === message.data.gateway.serial)
+				{
+					flag = true;
+					$scope.gateways[i] = message.data.gateway;
+				}
+	    	};
+	    	if (!flag) $scope.gateways.push(message.data.gateway);
+	    	$scope.messages.unshift(message.data.message);
+	    	$scope.showMessage = false;
+	    });
+	}
 
   });
 

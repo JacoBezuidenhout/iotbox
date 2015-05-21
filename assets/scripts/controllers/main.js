@@ -8,28 +8,24 @@
  * Controller of the iotboxApp
  */
 angular.module('iotboxApp')
-  .controller('MainCtrl', function ($scope, $sails) {
-    $scope.awesomeThings = [ 
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-    $scope.gateways = [];
+  .controller('MainCtrl', ['$scope', '$location', 'authFactory', function ($scope, $location, authFactory) {
+    
+    $scope.user = authFactory.user();
 
-    	$sails.get("/gateway")
-      	.success(function (data, status, headers, jwr) {
-    		$scope.gateways.forEach(function(gateway){
-		    	gateway.nodes.forEach(function(node){
-					node.modules = getModules(node.serial);
-				});
-			});
-        	$scope.gateways = data;
-      	})
-      	.error(function (data, status, headers, jwr) {
-       		alert('Houston, we got a problem!');
-      	});
+   	$scope.login = function()
+   	{
+   		authFactory.login($scope.identifier,$scope.password,function(res){
+   			if (res.email)
+   			{
+   				// alert(res);
+   				$location.url('/dashboard');
+   			}
+   			else
+   			{
+   				alert("error");
+   			}
+   		});
+	}	
 
-      	 $sails.on("gateway", function (message) {
-      	 		console.log(message);
-      	 });
-  });
+
+  }]);

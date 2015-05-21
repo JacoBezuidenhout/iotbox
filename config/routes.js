@@ -32,7 +32,7 @@ module.exports.routes = {
 'get /auth/:provider/callback': 'AuthController.callback',
 'get /auth/:provider/:action': 'AuthController.callback',
 
-// 'get /gateway':'GatewayController.gateway',
+'get /me':'AuthController.me',
   /***************************************************************************
   *                                                                          *
   * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *

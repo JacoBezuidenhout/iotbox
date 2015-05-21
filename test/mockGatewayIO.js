@@ -8,8 +8,10 @@ var settings = require(settings_filename);
 
 var queue = {};
 
-// var socket = require('socket.io-client')('http://api.iotbox.work');
-var socket = require('socket.io-client')('http://localhost:5000');
+var state = 0;
+
+var socket = require('socket.io-client')('http://api.iotbox.work');
+// var socket = require('socket.io-client')('http://localhost:5000');
 var run;
 console.log("Connecting...");
 
@@ -40,7 +42,7 @@ socket.on('login', function(data)
 		    setInterval(function()
 		    {  
 		      send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*5+25});
-		      // send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
+		      send({node: serial, type: 'XBee868LP', module: 'SWCH1_0', value: state});
 		      // send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
 		      // send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
 		      // send({node: serial, type: 'XBee868LP', module: ['TEMP1_0','HUMI1_0','BATE1_0','LIGH1_0'][Math.trunc(Math.random()*4)], value: Math.random()*50});
@@ -61,7 +63,21 @@ socket.on('ping', function(data){
 });
 
 socket.on('settings', function(data){
-	settings = data;
+	// settings = data;
+	console.log("New Settings",data);
+	
+});
+
+socket.on('cmd', function(data){
+	// settings = data;
+	console.log("CMD",data);
+	// { node: 'Node962132', module: 'SWCH1_0', cmd: 'toggle' }
+	if (data.module == 'SWCH1_0' && data.cmd == 'toggle')
+		if(state)
+			state = 0;
+		else
+			state = 1;
+			
 });
 
 socket.on('data', function(data){
