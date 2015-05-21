@@ -4,9 +4,8 @@ module.exports = function(req, res, next) {
   // or if this is the last policy, the controller
   blueprintFind = require("../../../node_modules/sails/lib/hooks/blueprints/actions/find");
 
-  if (req.session.authenticated) {
+  if (req.session.user) {
   		if(req.params.id){
-
   			found = false;
   			for (var i = req.session.user.gateways.length - 1; i >= 0; i--) {
   				if (req.session.user.gateways[i] == req.params.id){
@@ -43,5 +42,7 @@ module.exports = function(req, res, next) {
 				res.forbidden('You are not permitted to perform this action.');
 			}
 		}
+	}else{
+		res.forbidden('You are not logged in.');
 	}
 };
