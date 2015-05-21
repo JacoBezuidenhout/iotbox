@@ -16,7 +16,7 @@ module.exports = function(req, res, next) {
 
   			if(found){
 	  			Gateway.findOne({id : req.params.id},function(err,gateway){
-	  				Node.find({id : gateway.nodes},function(err,nodes){
+	  				Node.find({serial : gateway.nodes},function(err,nodes){
 	  					if(nodes){
 	  						gateway.nodes = nodes;
 	  						res.ok(gateway);

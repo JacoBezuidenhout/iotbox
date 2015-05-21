@@ -28,7 +28,8 @@ module.exports = {
 
     nodes :
     {
-      type: "array"
+      type: "array",
+      defaultsTo: []
     },
 
     apiCount :
