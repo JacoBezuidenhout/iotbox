@@ -16,7 +16,6 @@ angular.module('iotboxApp')
         console.log(data);
       });
 
-      // $scope.gateways = [{id: 1,type: 'IntelEdison'},{id: 2,type: 'IntelEdison'},{id: 3,type: 'IntelEdison'},{id: 4,type: 'IntelEdison'}];
     }])
     .controller('GatewayCtrl', ['$scope', '$sails', 'authFactory', function ($scope, $sails, authFactory) {
      
@@ -61,15 +60,135 @@ angular.module('iotboxApp')
 
     }])
     .controller('NodeCtrl', ['$scope', '$sails', function ($scope, $sails) {
+              
+
+      $scope.moduleOptions = 
+      {
+        'All' :     { 
+                      values : 
+                      [
+                        {key : 'Delta', defaults : [{key: 'Time', value: 100},{key: 'Value', value: 4}] },
+                        {key : 'Extreme', defaults : [{key: 'Max', value: 100},{key: 'Min', value: -40}] },
+                        {key : 'Safe', defaults : [{key: 'Max', value: 60},{key: 'Min', value: 10}] }
+                      ],
+                      type : 'sensor' 
+                    },
+        'BATE1_0' : { 
+                      values : 
+                      [
+                        {key : 'Delta', defaults : [{key: 'Time', value: 100},{key: 'Value', value: 4}] },
+                        {key : 'Extreme', defaults : [{key: 'Max', value: 100},{key: 'Min', value: -40}] },
+                        {key : 'Safe', defaults : [{key: 'Max', value: 60},{key: 'Min', value: 10}] }
+                      ],
+                      type : 'sensor' 
+                    },
+        'HUMI1_0' : { 
+                      values : 
+                      [
+                        {key : 'Delta', defaults : [{key: 'Time', value: 100},{key: 'Value', value: 4}] },
+                        {key : 'Extreme', defaults : [{key: 'Max', value: 100},{key: 'Min', value: -40}] },
+                        {key : 'Safe', defaults : [{key: 'Max', value: 60},{key: 'Min', value: 10}] }
+                      ],
+                      type : 'sensor' 
+                    },
+        'LIGH1_0' : { 
+                      values : 
+                      [
+                        {key : 'Delta', defaults : [{key: 'Time', value: 100},{key: 'Value', value: 4}] },
+                        {key : 'Extreme', defaults : [{key: 'Max', value: 100},{key: 'Min', value: -40}] },
+                        {key : 'Safe', defaults : [{key: 'Max', value: 60},{key: 'Min', value: 10}] }
+                      ],
+                      type : 'sensor' 
+                    },
+        'TEMP1_0' : { 
+                      values : 
+                      [
+                        {key : 'Delta', defaults : [{key: 'Time', value: 100},{key: 'Value', value: 4}] },
+                        {key : 'Extreme', defaults : [{key: 'Max', value: 100},{key: 'Min', value: -40}] },
+                        {key : 'Safe', defaults : [{key: 'Max', value: 60},{key: 'Min', value: 10}] }
+                      ],
+                      type : 'sensor' 
+                    },
+        'SWCH1_0' : { 
+                      values : 
+                      [
+                        {key : 'Delta', defaults : [{key: 'High -> Low', value: 0},{key: 'Low -> High', value: 0},{key: 'Time', value: 100}] },
+                        {key : 'Blink', defaults : [{key: 'Delay', value: 1000}] },
+                        {key : 'State', defaults : [{key: 'State', value: 1}] }
+                      ],
+                      type : 'actuator' 
+                    }
+      };
+
+      $scope.actuatorAlerts = [];
+
+      $scope.moduleOptionDefaults = function(m,k)
+      {
+        console.log($scope.moduleOptions[m],m,k);
+        var defaults = 0;
+
+        for (var i = 0; i < $scope.moduleOptions[m].values.length; i++) {
+          console.log($scope.moduleOptions[m].values[i].key);
+          if ($scope.moduleOptions[m].values[i].key == k)
+            defaults = $scope.moduleOptions[m].values[i].defaults;
+        };
+         
+        return defaults;
+      };
+
+      $scope.isActuator = function(m)
+      {
+        return ($scope.moduleOptions[m].type == 'actuator');
+      };
+
+      $scope.toggleActuator = function(m)
+      {
+        $scope.$applyAsync(function() 
+        {
+          $scope.actuatorAlerts.push({class : 'success', body : m + ': toggle sent.'});
+        });
+      };
+
+      $scope.getState = function(m)
+      {
+        if ($scope.isActuator(m))
+        {
+          if (1)
+            return 'primary';
+          else
+            return 'danger';
+        }
+      };
 
       $scope.settingAdd = function()
       {
-        console.log('settingAdd');
-      };
+        $scope.$applyAsync(function() 
+        {
+          $scope.node.node.settings.push({module: 'All', key: 'Delta', value: [{key: 'Time', value: 100},{key: 'Value', value: -40}]});
+          console.log('settingAdd');
+        });
+      };      
 
       $scope.nodeSave = function()
       {
-        console.log('nodeSave');
+        for (var i = 0; i < $scope.node.node.settings.length; i++) 
+        {
+          delete $scope.node.node.settings[i].$$hashKey;
+            console.log('i=',i);
+          if ($scope.node.node.settings[i].class == 'danger')
+          {
+            $scope.node.node.settings.splice(i, 1);
+            i--;
+            console.log('Deleted. i=',i);
+          }
+          else
+          {
+            for (var j = 0; j < $scope.node.node.settings[i].value.length; j++) {
+              delete $scope.node.node.settings[i].value[j].$$hashKey;
+            };
+          }
+        };
+        console.log('nodeSave',$scope.node);
       };
 
       $scope.nodeReset = function()
@@ -86,14 +205,13 @@ angular.module('iotboxApp')
         query += "&limit=" +  l + "&sort=createdAt%20desc";
         $scope.$applyAsync(function() 
         {
-          $('#collapseTwo').show(200);
           $sails.get(query)
           .success(function (data, status, headers, jwr) {
             $scope.datapoints = data.map(function(obj){ 
              var rObj = obj;
              rObj.timestamp = Date.parse(obj.createdAt);
              return rObj;
-          });
+            });
             console.log("got datapoints",$scope.graphData);
           })
           .error(function (data, status, headers, jwr) {
@@ -169,6 +287,18 @@ angular.module('iotboxApp')
               datapointsGet: '=fn'
           },
             templateUrl: 'scripts/modules/directives/datapoints.html'
+        };
+    })
+    .directive('actuators', function() {
+        return {
+          scope: {
+              node: '=data',
+              actuatorAlerts: '=alerts',
+              isActuator: '=fn',
+              getState: '=gn',
+              toggleActuator: '=hn'
+          },
+            templateUrl: 'scripts/modules/directives/actuators.html'
         };
     })
   	.directive('graphs', function() {

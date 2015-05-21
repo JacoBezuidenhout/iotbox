@@ -5,7 +5,7 @@
     	<div class="input-group">
 		  	<span class="input-group-addon" id="basic-addon1">Module</span>
 			<select class="form-control" ng-model="moduleFilter" ng-change="datapointsGet(node,moduleFilter,datapointLimit)">
-				<option value="">All</option>
+				<option value="" selected>All</option>
 				<option ng-repeat="module in node.modules" value="{{module}}">{{module}}</option>
 			</select>
 		</div>
@@ -25,21 +25,20 @@
 	<div class="col-md-6">
     	<div class="input-group">
 		  	<span class="input-group-addon" id="basic-addon1">Number of Datapoints</span>
-			<input type="number" class="form-control" ng-model="datapointLimit" ng-change="datapointsGet(node,moduleFilter,datapointLimit)" placeholder="20" />
+			<input type="number" class="form-control" ng-model="datapointLimit" ng-change="datapointsGet(node,moduleFilter,datapointLimit)" value="20" placeholder="20" />
 		</div>
 	</div>
 </div>
 <br/>
-<div class="row">
-	<input class="form-control text-center" type="number" step="10" value=0 ng-model="numLimit">
-	<table class="table" style="height: 300px; overflow-y:scroll;">
+<div class="row" style="height: 450px; overflow-y:scroll;">
+	<table class="table">
 		<tr>
 			<td><strong>Module</strong></td>
 			<td><strong>Action</strong></td>
 			<td><strong>Date</strong></td>
 			<td><strong>Value</strong></td>
 		</tr>	
-		<tr ng-repeat="datapoint in datapoints | orderBy:moduleSort | limitTo : 10 : numLimit ">
+		<tr ng-repeat="datapoint in datapoints | orderBy:moduleSort ">
 			<td>{{datapoint.module}}</td>
 			<td>{{datapoint.verb}}</td>
 			<td>{{datapoint.createdAt}}</td>
