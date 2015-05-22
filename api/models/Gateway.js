@@ -32,10 +32,17 @@ module.exports = {
       defaultsTo: []
     },
 
-    apiCount :
+    modules :
     {
-      type: "number"
+      type: "array",
+      defaultsTo: []
     }
+
+    // apiCount :
+    // {
+    //   type: "number",
+    //   defaultsTo: 0
+    // }
   }
 };
 

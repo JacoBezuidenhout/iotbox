@@ -27,7 +27,7 @@ angular.module('iotboxApp')
           $sails.get("/gateway/" + g.id)
           .success(function (data, status, headers, jwr) {
             $scope.nodes = data.nodes;
-            $scope.gateway = data.gateway;
+            $scope.gateway = data;
             console.log("got nodes",data);
           })
           .error(function (data, status, headers, jwr) {
@@ -192,7 +192,7 @@ angular.module('iotboxApp')
       {
         console.log('datapointsGet');
         //_id = serial
-        var query = "/datapoint/?node=" + n._id;
+        var query = "/datapoint/?node=" + n.serial;
         if (m != "")
           query += "&module=" +  m;
         query += "&limit=" +  l + "&sort=createdAt%20desc";

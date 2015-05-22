@@ -65,20 +65,70 @@ io.on('connection', function (socket)
     socket.emit('data',cs);
     msg.gateway = socket.gateway.id;
     socket.gateway.lastHeartbeat = new Date();
-    Node.findOrCreate({serial:msg.node},{serial: msg.node, type: msg.type}).exec(function createFindCB(err,node){
+    Node.findOrCreate({serial:msg.node},{serial: msg.node, type: msg.type, apiCount: 0}).exec(function createFindCB(err,node){
       
-      Gateway.findOne({id: socket.gateway.id},function(err,data){
+      console.log(err,msg,node);
 
-        var flag = false;
-        console.log(data);
-
-        for (var i = 0; i < data.nodes.length; i++) {
-          if (data.nodes[i] == msg.node)
+      var flag = false;
+      if (node.modules)
+      {
+        for (var i = 0; i < node.modules.length; i++) {
+          if (node.modules[i] == msg.module)
             flag = true;
         };
-        
+      }
+      else
+      {
+        node.modules = [];
+      }
+
+      node.apiCount = node.apiCount || 0;
+      node.apiCount++;
+      
+      if (!flag)
+        node.modules.push(msg.module);
+
+      node.save();
+
+      Gateway.findOne({id: socket.gateway.id},function(err,data){
+
+        flag = false;
+        console.log(data);
+
+        if (data.nodes)
+        {
+          for (var i = 0; i < data.nodes.length; i++) {
+            if (data.nodes[i] == msg.node)
+              flag = true;
+          };
+        }
+        else
+        {
+          data.nodes = [];
+        }
+
+
+        data.apiCount = data.apiCount || 0;
+        data.apiCount++;
+
         if (!flag)
           data.nodes.push(msg.node);
+
+        flag = false;
+        if (data.modules)
+        {
+          for (var i = 0; i < data.modules.length; i++) {
+            if (data.modules[i] == msg.module)
+              flag = true;
+          };
+        }
+        else
+        {
+          data.modules = [];
+        }
+
+        if (!flag)
+          data.modules.push(msg.module);
 
         data.save();
 
