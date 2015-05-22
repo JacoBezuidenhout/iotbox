@@ -156,27 +156,27 @@ angular.module('iotboxApp')
       {
         $scope.$applyAsync(function() 
         {
-          $scope.node.node.settings.push({module: 'All', key: 'Delta', value: [{key: 'Time', value: 100},{key: 'Value', value: -40}]});
+          $scope.node.settings.push({module: 'All', key: 'Delta', value: [{key: 'Time', value: 100},{key: 'Value', value: -40}]});
           console.log('settingAdd');
         });
       };      
 
       $scope.nodeSave = function()
       {
-        for (var i = 0; i < $scope.node.node.settings.length; i++) 
+        for (var i = 0; i < $scope.node.settings.length; i++) 
         {
-          delete $scope.node.node.settings[i].$$hashKey;
+          delete $scope.node.settings[i].$$hashKey;
             console.log('i=',i);
-          if ($scope.node.node.settings[i].class == 'danger')
+          if ($scope.node.settings[i].class == 'danger')
           {
-            $scope.node.node.settings.splice(i, 1);
+            $scope.node.settings.splice(i, 1);
             i--;
             console.log('Deleted. i=',i);
           }
           else
           {
-            for (var j = 0; j < $scope.node.node.settings[i].value.length; j++) {
-              delete $scope.node.node.settings[i].value[j].$$hashKey;
+            for (var j = 0; j < $scope.node.settings[i].value.length; j++) {
+              delete $scope.node.settings[i].value[j].$$hashKey;
             };
           }
         };

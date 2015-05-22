@@ -1,9 +1,9 @@
 {
     "createdAt": "2015-05-15T23:25:30.067Z",
-    "lastConnect": "2015-05-21T23:50:03.493Z",
+    "lastConnect": "2015-05-22T17:45:52.094Z",
     "serial": "Gateway5556806aee16297f0f339397",
     "type": "Intel Edison 1.0",
-    "updatedAt": "2015-05-21T23:45:26.164Z",
+    "updatedAt": "2015-05-22T17:25:29.116Z",
     "success": "success",
     "interval": 1000,
     "nodes": [
@@ -16,11 +16,19 @@
         "Node926601",
         "Node18186",
         "Node975811",
-        "Node793845"
+        "Node793845",
+        "Node265357",
+        "Node321750",
+        "Node430856",
+        "Node300980"
     ],
-    "apiCount": 40,
+    "apiCount": 291,
     "modules": [
-        "SWCH1_0"
+        "SWCH1_0",
+        "LIGH1_0",
+        "HUMI1_0",
+        "TEMP1_0",
+        "BATE1_0"
     ],
     "id": "555e5b0a5ee0a6bc0b9b4dae"
 }

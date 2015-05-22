@@ -31,10 +31,10 @@ io.on('connection', function (socket)
 
   socket.on('login', function (msg) 
   {
-    console.log('Logging In...', msg, Datapoint.socket);
+    // console.log('Logging In...', msg, Datapoint.socket);
     Gateway.findOrCreate({id: msg.id}, msg).exec(function createFindCB(err,gateway)
     {
-      console.log('Gateway', gateway, "logged in.");
+      // console.log('Gateway', gateway, "logged in.");
 
       gateway.lastConnect = new Date();
       gateway.save();
@@ -67,7 +67,8 @@ io.on('connection', function (socket)
     socket.gateway.lastHeartbeat = new Date();
     Node.findOrCreate({serial:msg.node},{serial: msg.node, type: msg.type, apiCount: 0}).exec(function createFindCB(err,node){
       
-      console.log(err,msg,node);
+      // console.log(err,msg,node);
+      console.log(msg.module);
 
       var flag = false;
       if (node.modules)
