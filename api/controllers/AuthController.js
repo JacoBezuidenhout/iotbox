@@ -36,28 +36,6 @@ var AuthController = {
   },
 
   login: function (req, res) {
-
-    // var strategies = sails.config.passport
-    //   , providers  = {};
-
-    // // Get a list of available providers for use in your templates.
-    // Object.keys(strategies).forEach(function (key) {
-    //   if (key === 'local') {
-    //     return;
-    //   }
-
-    //   providers[key] = {
-    //     name: strategies[key].name
-    //   , slug: key
-    //   };
-    // });
-
-    // // Render the `auth/login.ext` view
-    // res.view({
-    //   providers : providers
-    // , errors    : req.flash('error')
-    // });
-
     res.redirect('/#/login');
   },
 
@@ -77,11 +55,11 @@ var AuthController = {
    */
   logout: function (req, res) {
     req.logout();
-    
+
     // mark the user as logged out for auth purposes
     req.session.authenticated = false;
     req.session.user = {};
-    
+
     res.redirect('/#/login');
   },
 
@@ -152,7 +130,7 @@ var AuthController = {
         
         // Upon successful login, send the user to the homepage were req.user
         // will be available.
-        res.redirect('/');
+        res.redirect('/#/dashboard');
       });
     });
   },

@@ -19,8 +19,7 @@ angular
         controller: 'DashboardCtrl'
       })
       .when('/login', {
-        templateUrl: 'scripts/views/login.html',
-        controller: 'LoginCtrl'
+        templateUrl: 'scripts/views/login.html'
       })      
       .when('/heartbeat', {
         templateUrl: 'scripts/views/heartbeat.html',
