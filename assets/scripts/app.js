@@ -14,7 +14,7 @@ angular
         templateUrl: 'scripts/views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/dashboard', {
+      .when('/test', {
         templateUrl: 'scripts/views/dashboard.html',
         controller: 'DashboardCtrl'
       })
@@ -26,7 +26,7 @@ angular
         templateUrl: 'scripts/views/heartbeat.html',
         controller: 'HeartbeatCtrl'
       })
-      .when('/test', {
+      .when('/dashboard', {
         templateUrl: 'scripts/views/test.html',
         controller: 'TestCtrl'
       })
