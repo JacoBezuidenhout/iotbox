@@ -28,13 +28,21 @@ module.exports = {
 
     nodes :
     {
-      type: "array"
+      type: "array",
+      defaultsTo: []
     },
 
-    apiCount :
+    modules :
     {
-      type: "number"
+      type: "array",
+      defaultsTo: []
     }
+
+    // apiCount :
+    // {
+    //   type: "number",
+    //   defaultsTo: 0
+    // }
   }
 };
 

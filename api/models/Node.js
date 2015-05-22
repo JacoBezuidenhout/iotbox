@@ -22,6 +22,9 @@ module.exports = {
     type: {
       type: 'string'
     },
+    // apiCount: {
+    //   type: 'number'
+    // },
   	settings: {
   		type: 'json',
       defaultsTo: defaultSettings

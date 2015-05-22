@@ -19,11 +19,11 @@
 			<a href="" ng-click="nodeSet(n)">
 				<div class="row">
 					<div class="col-md-12">
-					    <h4>#{{n._id}}</h4>
+					    <h4>#{{n.serial}}</h4>
 					    <p>{{n.type}}</p>
 					    	<div class="col-md-2" ng-repeat="m in n.modules">
 					    		<p>
-					    			<img src="/images/48x48/{{m.id}}.png" style="max-width:250%" />
+					    			<img src="/images/48x48/{{m}}.png" style="max-width:250%" />
 					   			 </p>
 					    	</div>
 					</div>
